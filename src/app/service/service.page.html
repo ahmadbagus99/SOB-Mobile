@@ -1,0 +1,52 @@
+ 
+
+<ion-content color="secondary">
+    <div class="box">
+    	<div class="user">
+        <div class="logo-center">
+          <img src="../assets/img/logo/logo.jpg" >
+        </div>
+    	</div>
+    </div>
+
+    
+
+    
+
+    <div class="box" style="margin-top:5px;height:50%;">
+      <ion-item >
+        <ion-textarea placeholder="Please describe your Incident..." class="input-description" [(ngModel)]="Description"></ion-textarea>
+      </ion-item>
+
+      <ion-item style="margin-top:20px;">
+          <button class="button-light" (click)="save()" style="background-color:#0b8643;">Save</button>
+        </ion-item>
+      </div>
+</ion-content>
+
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-buttons>
+      <ion-grid style="text-align: center;">
+        <ion-row>
+          <ion-col>
+            <button ion-button style="background-color:#fffdff" (click)="home()">
+              <ion-icon name="home" style="font-size:40px;color:#9aa3aa;"></ion-icon>
+            </button>
+          </ion-col>
+          <ion-col>
+            <button ion-button style="background-color:#fffdff" (click)="sync()">
+              <ion-icon name="ios-apps" style="font-size:40px;color:#9aa3aa;"></ion-icon>
+            </button>
+          </ion-col>
+          <ion-col>
+            <button ion-button style="background-color:#fffdff" (click)="payment()">
+              <ion-icon name="ios-basket" style="font-size:40px;color:#9aa3aa;"></ion-icon>
+            </button>
+          </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-footer>

@@ -1,0 +1,90 @@
+<ion-content color="secondary">
+
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content style="color: brown;"
+      pullingIcon="arrow-dropdown"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <div class="box">
+    <div class="user">
+      <div class="logo-center">
+        <img src="../assets/img/logo/logo.jpg" >
+      </div>
+    </div>
+  </div>
+  
+  
+  <div class="box" style="margin-top:10px;color: #767676;">
+    <ion-row>
+      <ion-col size="2">
+          <img src="../assets/img/icon/home.png">
+      </ion-col>
+      <ion-col>
+        <ion-row>
+          <ion-col style="font-size:4vw;">
+              Report Order
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col style="font-size:4vw;" *ngFor="let item2 of items2">
+              <ion-icon name="md-pin" style="font-size:4vw;color:#fcc57e;"></ion-icon> QG-{{item2.No}}
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col style="font-size:4vw;">
+              <ion-icon name="ios-create" style="font-size:4vw;color:#767676;"></ion-icon> {{currentNumber | number}}
+          </ion-col>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+  </div>
+  
+  <div class="box" style="margin-top:10px;color: #767676;">
+    <ion-row>
+      <ion-col style="border:1px solid #9aa3aa;color:#ffffff;background-color: #3daf2c;" size='5'>Product</ion-col>
+      <ion-col style="border:1px solid #9aa3aa;color:#ffffff;background-color: #3daf2c;" size='2'>Seat</ion-col>
+      <ion-col style="border:1px solid #9aa3aa;color:#ffffff;background-color: #3daf2c;" size='2'>Sold</ion-col>
+      <ion-col style="border:1px solid #9aa3aa;color:#ffffff;background-color: #3daf2c;" size='3'>Total</ion-col>
+    </ion-row>
+
+    <ion-row *ngFor="let allDatas of allData">
+      <ion-col style="border:1px solid #9aa3aa;" size='5' *ngIf="allDatas.Qty > 0">{{allDatas.Product}}</ion-col>
+      <ion-col style="border:1px solid #9aa3aa;" size='2' *ngIf="allDatas.Qty > 0">{{allDatas.Seat}}</ion-col>
+      <ion-col style="border:1px solid #9aa3aa;" size='2' *ngIf="allDatas.Qty > 0">{{allDatas.Qty}}</ion-col>
+      <ion-col style="border:1px solid #9aa3aa;" size='3' *ngIf="allDatas.Qty > 0">{{allDatas.Total | number}}</ion-col>
+    </ion-row>
+  </div>
+  
+  
+  
+  </ion-content>
+  
+  <ion-footer>
+    <ion-toolbar>
+      <ion-buttons>
+        <ion-grid style="text-align: center;">
+          <ion-row>
+            <ion-col>
+              <button ion-button style="background-color:#fffdff" (click)="home()">
+                <ion-icon name="home" style="font-size:40px;color:#9aa3aa;"></ion-icon>
+              </button>
+            </ion-col>
+            <ion-col>
+              <button ion-button style="background-color:#fffdff" (click)="sync()">
+                <ion-icon name="ios-apps" style="font-size:40px;color:#9aa3aa;"></ion-icon>
+              </button>
+            </ion-col>
+            <ion-col>
+              <button ion-button style="background-color:#fffdff" (click)="payment()">
+                <ion-icon name="ios-basket" style="font-size:40px;color:#9aa3aa;"></ion-icon>
+              </button>
+            </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-footer>

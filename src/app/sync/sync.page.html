@@ -1,0 +1,100 @@
+<ion-content color="secondary">
+  <div class="box">
+    <div class="user">
+      <div class="logo-center">
+        <img src="../assets/img/logo/logo.jpg" >
+      </div>
+    </div>
+  </div>
+
+  <div class="box2" style="margin-top:5px;height:80%;background-color:white;">
+    <div class="user">
+
+      <ion-row style="border-bottom:1px solid #f1f1f1;padding-top:3vw;">
+        <ion-col style="font-size:4vw;padding-left:5vw;" size="10">
+          Syncronize
+        </ion-col>
+        <ion-col >
+          <button ion-button style="background-color:#fffdff" (click)="syn()">
+            <ion-icon name="ios-arrow-forward" style="font-size:5vw;color:#9aa3aa;"></ion-icon>
+          </button>
+        </ion-col>
+      </ion-row>
+
+    
+
+      <ion-row style="border-bottom:1px solid #f1f1f1;padding-top:3vw;">
+        <ion-col style="font-size:4vw;padding-left:5vw;" size="10">
+          List Product
+        </ion-col>
+        <ion-col >
+          <button ion-button style="background-color:#fffdff" (click)="product2()">
+            <ion-icon name="ios-arrow-forward" style="font-size:5vw;color:#9aa3aa;"></ion-icon>
+          </button>
+        </ion-col>
+      </ion-row>
+
+      <ion-row style="border-bottom:1px solid #f1f1f1;padding-top:3vw;">
+        <ion-col style="font-size:4vw;padding-left:5vw;" size="10">
+          Report Order
+        </ion-col>
+        <ion-col >
+          <button ion-button style="background-color:#fffdff" (click)="payment()">
+            <ion-icon name="ios-arrow-forward" style="font-size:5vw;color:#9aa3aa;"></ion-icon>
+          </button>
+        </ion-col>
+      </ion-row>
+
+      <ion-row style="border-bottom:1px solid #f1f1f1;padding-top:3vw;">
+        <ion-col style="font-size:4vw;padding-left:5vw;" size="10">
+          Note
+        </ion-col>
+        <ion-col >
+          <button ion-button style="background-color:#fffdff" (click)="service()">
+            <ion-icon name="ios-arrow-forward" style="font-size:5vw;color:#9aa3aa;"></ion-icon>
+          </button>
+        </ion-col>
+      </ion-row>
+
+      <ion-row style="border-bottom:1px solid #f1f1f1;padding-top:3vw;">
+        <ion-col style="font-size:4vw;padding-left:5vw;" size="10">
+          Logout
+        </ion-col>
+        <ion-col >
+          <button ion-button style="background-color:#fffdff" (click)="logout()">
+            <ion-icon name="ios-arrow-forward" style="font-size:5vw;color:#9aa3aa;"></ion-icon>
+          </button>
+        </ion-col>
+      </ion-row>
+
+      </div>
+  </div>
+  </ion-content>
+
+  <ion-footer>
+    <ion-toolbar>
+      <ion-buttons>
+        <ion-grid style="text-align: center;">
+          <ion-row>
+            <ion-col>
+              <button ion-button style="background-color:#fffdff" (click)="home()">
+                <ion-icon name="home" style="font-size:40px;color:#9aa3aa;"></ion-icon>
+              </button>
+            </ion-col>
+            <ion-col>
+              <button ion-button style="background-color:#fffdff" (click)="sync()">
+                <ion-icon name="ios-apps" style="font-size:40px;color:#9aa3aa;"></ion-icon>
+              </button>
+            </ion-col>
+            <ion-col>
+              <button ion-button style="background-color:#fffdff" (click)="payment()">
+                <ion-icon name="ios-basket" style="font-size:40px;color:#9aa3aa;"></ion-icon>
+              </button>
+            </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-footer>
+  
+ 

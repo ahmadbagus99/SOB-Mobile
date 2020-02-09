@@ -1,0 +1,71 @@
+ 
+
+<ion-content color="secondary">
+  <div class="box">
+      <div class="logo-center">
+        <img src="../assets/img/logo/logo.jpg" >
+    </div>
+  </div>
+
+
+  <div class="box2" style="margin-top:5px;">
+    <div class="user">
+
+      <ion-row style="border-bottom:1px solid #f1f1f1;" *ngFor="let item of items">
+        <ion-col style="font-size:4vw;padding-top:10px;color:#fb1832" size="2">
+          <img src="../assets/img/Promo/Aqua.jpg">
+        </ion-col>
+        <ion-col style="font-size:4vw;padding-top:10px;" size="8">
+          <ion-row >
+            <ion-col >
+              <strong>{{item.Nama}}</strong>
+            </ion-col>
+          </ion-row>
+          <ion-row >
+            <ion-col >
+              <span style="font-size:3vw;">Price</span><br>Rp.{{item.Price | number}}
+            </ion-col>
+          </ion-row>
+          
+        </ion-col>
+        <ion-col style="font-size:4vw;padding-top:10px;">
+          <span style="font-size:3vw;">Qty</span><br>{{item.Stock}}
+        </ion-col>
+      </ion-row>
+
+   
+
+      
+
+    </div>
+  </div>
+
+  
+</ion-content>
+
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-buttons>
+      <ion-grid style="text-align: center;">
+        <ion-row>
+          <ion-col>
+            <button ion-button style="background-color:#fffdff" (click)="home()">
+              <ion-icon name="home" style="font-size:40px;color:#9aa3aa;"></ion-icon>
+            </button>
+          </ion-col>
+          <ion-col>
+            <button ion-button style="background-color:#fffdff" (click)="sync()">
+              <ion-icon name="ios-apps" style="font-size:40px;color:#9aa3aa;"></ion-icon>
+            </button>
+          </ion-col>
+          <ion-col>
+            <button ion-button style="background-color:#fffdff" (click)="payment()">
+              <ion-icon name="ios-basket" style="font-size:40px;color:#9aa3aa;"></ion-icon>
+            </button>
+          </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-footer>
