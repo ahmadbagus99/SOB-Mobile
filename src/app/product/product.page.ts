@@ -48,9 +48,9 @@ export class ProductPage implements OnInit {
       this.grand = 0;
 
       for(let ii = 0; ii<this.AddArray.length; ii++){
-        if(this.items[i]['Nama'] == this.AddArray[ii]['Product'] ){
+        if(this.items[i]['Nama'] == this.AddArray[ii]['Product'] && this.AddArray[ii]['Qty'] > 0){
           this.total = this.total + this.AddArray[ii]['Qty'];
-          this.grand = this.grand + parseInt(this.items[i]['Price']);
+          this.grand = this.grand + parseInt(this.AddArray[ii]['Price']);
         } 
       }
       this.ArrayInput2 = { 

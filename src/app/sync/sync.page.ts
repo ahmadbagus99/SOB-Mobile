@@ -53,17 +53,20 @@ export class SyncPage {
     this.navCtrl.navigateForward('/order');
   }
   upload_data(){
+    this.storage.get('Nama').then((val3) => {
+    this.User = val3;
     this.storage.get('Description').then((val2) => {
       this.Description=val2;
       this.storage.get('ClosedOrder').then((val) => {
         this.Send = val;
         for(let i = 0; i<this.Send.length; i++){
-          this.http.get('https://bpmonline.asia/duanyam/KangOL/upload.php?Product='+this.Send[i]['Product']+'&Total='+this.Send[i]['Total']+'&Flight='+this.Send[i]['Flight']+'&Seat='+this.Send[i]['Seat']+'&NamaPassanger='+this.Send[i]['NamaPassanger']+'&NoFlight='+this.Send[i]['NoFlight']+'&Qty='+this.Send[i]['Qty']+'&Desc='+this.Description)
+          this.http.get('https://bpmonline.asia/duanyam/KangOL/upload.php?Product='+this.Send[i]['Product']+'&Total='+this.Send[i]['Total']+'&Flight='+this.Send[i]['Flight']+'&Seat='+this.Send[i]['Seat']+'&NamaPassanger='+this.Send[i]['NamaPassanger']+'&NoFlight='+this.Send[i]['NoFlight']+'&Qty='+this.Send[i]['Qty']+'&Desc='+this.Description+'&User='+this.User)
           .subscribe(data => {},
           err => {});
         }
       });
     });
+  });
   }
   sync_flight(){
     this.storage.get('Nama').then((val) => {
@@ -80,13 +83,13 @@ export class SyncPage {
             this.storage.set('FlightData', this.flightData);
             }
             else{
-              console.log("Oops!");
+              console.log("Oops Flight!");
               this.presentAlert();
           }
         },
         err => {
           this.presentAlert();
-          console.log("Oops!");
+          console.log("Oops Flight!");
         });
 
         this.http.get('https://bpmonline.asia/duanyam/KangOL/sync_product.php?ID='+this.User)
@@ -97,13 +100,13 @@ export class SyncPage {
             this.storage.set('ProductData', this.ProductData);
             }
             else{
-              console.log("Oops!");
+              console.log("Oops Product!");
               this.presentAlert();
           }
         },
         err => {
           this.presentAlert();
-          console.log("Oops!");
+          console.log("Oops Product!");
         });
 
         this.http.get('https://bpmonline.asia/duanyam/KangOL/sync_passanger.php?ID='+this.User)
@@ -116,13 +119,13 @@ export class SyncPage {
             this.storage.set('Description', '');
             }
             else{
-              console.log("Oops!");
+              console.log("Oops Passanger!");
               this.presentAlert();
           }
         },
         err => {
           this.presentAlert();
-          console.log("Oops!");
+          console.log("Oops Passanger!");
         });
     }
   });

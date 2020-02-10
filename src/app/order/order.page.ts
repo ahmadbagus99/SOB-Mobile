@@ -58,6 +58,7 @@ export class OrderPage implements OnInit {
 
     this.storage.get('DataOrder').then((val) => {
       this.items3 = val;
+      this.currentNumber = 0;
       for(let i = 0; i<this.items3.length; i++){
         this.currentNumber = this.currentNumber + this.items3[i]['Total'];
       }
@@ -110,7 +111,7 @@ export class OrderPage implements OnInit {
             Total : this.allData3[ii]['Total'], 
             Passanger : this.allData[0]['ID'],
             Flight : this.allData2[0]['ID'],
-            Seat : this.seat,
+            Seat : this.allData3[ii]['Seat'],
             NamaPassanger : this.allData[0]['Nama'],  
             NoFlight : this.allData2[0]['No'], 
             Qty : this.allData3[ii]['Qty']
