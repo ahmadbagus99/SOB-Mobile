@@ -4,7 +4,7 @@ import { Storage } from '@ionic/storage';
 import { HTTP } from '@ionic-native/http/ngx';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ProductFilterService } from '../filter/product-filter.service';
+import { ProductFilterService } from '../publicServices/product-filter.service';
 
 @Component({
   selector: 'app-product',
@@ -26,11 +26,11 @@ export class ProductPage implements OnInit {
   User:string;
   
   constructor(
-              public navCtrl: NavController,
-              public storage: Storage, 
-              public alertController: AlertController,
-              public http: HttpClient,
-              private filterData : ProductFilterService
+    public navCtrl: NavController,
+    public storage: Storage, 
+    public alertController: AlertController,
+    public http: HttpClient,
+    private filterData : ProductFilterService
     ) {
     this.getdata();
    }

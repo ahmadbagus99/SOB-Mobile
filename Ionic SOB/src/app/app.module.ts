@@ -12,8 +12,8 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
-import { AuthGuardService } from './filter/auth-guard.service';
-import { AuthenticationService } from './filter/authentication.service';
+import { AuthGuardService } from './publicServices/auth-guard.service';
+import { AuthenticationService } from './publicServices/authentication.service';
 
 // import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
 // const config: SocketIoConfig = { url: 'http://socketserver.bpmonline.asia/list_order.js/api/get-motor-details', options: {} };
