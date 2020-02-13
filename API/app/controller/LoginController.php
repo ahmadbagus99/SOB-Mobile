@@ -17,7 +17,12 @@ class Login extends Controller
     }
 
     /**
-     * 
+     * Method index
+     * Main method in Login class
+     * Proses login dengan mengechek username dan password
+     * @param {string} username
+     * @param {string} password
+     * @return {object} result
      */
     public function index() {
         $result = (object)array(
