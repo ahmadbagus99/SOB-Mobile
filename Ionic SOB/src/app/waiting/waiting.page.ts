@@ -56,11 +56,12 @@ export class WaitingPage {
   async present() {
     this.isLoading = true;
     return await this.loading.create({
-      spinner: null,
-      message: 'Search...',
-      translucent: true,
+      message : "",
+      spinner: 'crescent',
+      translucent : true,
+      cssClass:'custom-loader-class',
+      mode: 'md',
       duration: 2000,
-      cssClass: 'custom-class custom-loading'
     }).then(a => {
       a.present().then(() => {
         if (!this.isLoading) {

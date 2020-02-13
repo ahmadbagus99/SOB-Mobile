@@ -10,6 +10,7 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./main.page.scss'],
 })
 export class MainPage {
+
 Name:string;
 customer:string;
 items : any = [];
@@ -18,31 +19,43 @@ ArrayInput : any = [];
 intervalHandle: any = null;
 lenghtArray: any = null;
 FlightData : any = [];
-  ID:string;
+ID:string;
+
   constructor(
     public navCtrl: NavController,
+    public alertCtrl: AlertController,
     public storage: Storage, 
-    public http: HttpClient) {
-      this.refresh();
-      this.getdata();
+    public http: HttpClient,
+    public loading: LoadingController
+    ) {
    }
+  
+  ionViewDidEnter(){
+    this.refresh();
+    this.getdata();
+  }
 
-   service(Data) {
+  service(Data) {
     this.storage.set('Name', Data);
     this.navCtrl.navigateForward('/tabs/service');
   }
+
   home() {
     this.navCtrl.navigateForward('/home');
   }
+
   sync() {
     this.navCtrl.navigateForward('/tabs/sync');
   }
+
   product2() {
     this.navCtrl.navigateForward('/tabs/product2');
   }
+
   payment() {
     this.navCtrl.navigateForward('/tabs/payment');
   }
+
   passanger() {
     this.navCtrl.navigateForward('/tabs/passanger');
   }
@@ -51,9 +64,8 @@ FlightData : any = [];
     speed:1000
   };
   
-  
-
   getdata(){
+    console.log('Get Data is running...')
     this.storage.get('FlightData').then((val) => {
         this.items = val;
     });

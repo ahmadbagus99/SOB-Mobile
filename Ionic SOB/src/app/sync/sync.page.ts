@@ -174,11 +174,12 @@ export class SyncPage {
   async present() {
     this.isLoading = true;
     return await this.loading.create({
-      spinner: null,
-      message: 'Search...',
-      translucent: true,
-      duration: 2000,
-      cssClass: 'custom-class custom-loading'
+      message : "",
+      spinner: 'crescent',
+      translucent : true,
+      cssClass:'custom-loader-class',
+      mode: 'md',
+      duration: 2000
     }).then(a => {
       a.present().then(() => {
         if (!this.isLoading) {
