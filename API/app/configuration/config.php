@@ -139,12 +139,6 @@ switch (ENVIRONMET) {
     define('MODEL', $configuration['MODEL']);
     define('ASSETS', $configuration['ASSETS']);
     define('DEFAULT_CONTROLLER', $configuration['DEFAULT_CONTROLLER']);
-    define('HOST_EMAIL', $configuration['HOST_EMAIL']);
-    define('NAME_EMAIL', $configuration['NAME_EMAIL']);
-    define('USERNAME_EMAIL', $configuration['USERNAME_EMAIL']);
-    define('PASSWORD_EMAIL', $configuration['PASSWORD_EMAIL']);
-    define('PORT_EMAIL', $configuration['PORT_EMAIL']);
-    define('SMTP_SECURE_EMAIL', $configuration['SMTP_SECURE_EMAIL']);
     define('KEY_AUTH', $configuration['KEY_AUTH']);
     define('BASE_URL_CREATIO', $configuration['BASE_URL_CREATIO']);
     define('USERNAME_CREATIO', $configuration['USERNAME_CREATIO']);
