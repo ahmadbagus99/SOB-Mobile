@@ -5,7 +5,7 @@ import { AuthGuardService } from './filter/auth-guard.service';
 const routes: Routes = [
   // { path: 'tabs', loadChildren: './tabs/tabs.module#TabsPageModule' },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: 'login', loadChildren: '../login/login.module#LoginPageModule' },
+  { path: 'login', loadChildren: './login/login.module#LoginPageModule' },
   {
     path: 'tabs',
     canActivate: [AuthGuardService],

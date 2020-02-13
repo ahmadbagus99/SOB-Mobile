@@ -3,6 +3,7 @@ import { NavController,LoadingController,AlertController  } from '@ionic/angular
 import { Storage } from '@ionic/storage';
 import { HTTP } from '@ionic-native/http/ngx';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +22,9 @@ export class LoginPage implements OnInit {
     public navCtrl: NavController,
     public storage: Storage,
     public http: HttpClient,
-    public alertCtrl: AlertController) { }
+    public alertCtrl: AlertController,
+    public router : Router
+    ) { }
 
   ngOnInit() {
   }
@@ -36,7 +39,7 @@ export class LoginPage implements OnInit {
         this.allData = JSON.parse(this.ConvertJson);
           this.storage.set('Active', 'Active');
           this.storage.set('Nama', this.allData[0]['ID']);
-          this.navCtrl.navigateForward('/tabs/main');
+          this.router.navigate(['tabs/main'])
         }
         else{
           console.log("Oops!");
