@@ -27,6 +27,11 @@ $route = new \Klein\Klein();
         $controller->call('login/index');
     });
 
+    // sync to local
+    $route->respond('PUT', '/sync/mobile-to-local', function() use ($controller) {
+        $controller->call('SyncLocal/syncToLocal', array(), true);
+    });
+
     /** Error Request */
     $route->onHttpError(function($code, $router) use ($controller) {
         switch ($code) {
