@@ -1,0 +1,16 @@
+{
+    "name": "isystemasia/sob-api",
+    "description": "Citilink Sales: SOB API",
+    "authors": [
+        {
+            "name": "Romadan Saputra",
+            "email": "42397721+dev-dmadan@users.noreply.github.com"
+        }
+    ],
+    "require": {
+        "php-curl-class/php-curl-class": "^8.6",
+        "klein/klein": "^2.1",
+        "firebase/php-jwt": "^5.0",
+        "clancats/hydrahon": "^1.1"
+    }
+}
