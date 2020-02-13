@@ -1,7 +1,0 @@
-{
-  "name": "KangOL",
-  "integrations": {
-    "cordova": {}
-  },
-  "type": "angular"
-}
