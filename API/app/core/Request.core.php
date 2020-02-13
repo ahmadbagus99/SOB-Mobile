@@ -36,6 +36,9 @@ class Request {
      * 
      */
     public function error($errorCode = 404, $json = false) {
+        header("Content-Type: application/json");
+        header("Accept: application/json");
+        
         $controller = new Controller();
 
         $message = '';
@@ -52,10 +55,10 @@ class Request {
                 break;
         }
 
-        $data = array(
+        $data = (object)array(
             'error' => $errorCode,
             'message' => $message
         );
-        return $controller->view('error/error', $data, true);
+        return $data;
     }
 }
