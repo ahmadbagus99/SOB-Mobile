@@ -22,22 +22,22 @@ $route = new \Klein\Klein();
 
 /** Your custom route */
 
-    // main api / gateway
-    $route->respond('GET', '/', function() use ($controller) {
-        $controller->call('home/index');
+    // login
+    $route->respond('POST', '/login', function() use ($controller) {
+        $controller->call('login/index');
     });
 
     /** Error Request */
     $route->onHttpError(function($code, $router) use ($controller) {
         switch ($code) {
             case 404:
-                $router->response()->body($controller->error(404));
+                $router->response()->body(json_encode($controller->error(404)));
                 break;
             case 405:
-                $router->response()->body($controller->error(405));
+                $router->response()->body(json_encode($controller->error(405)));
                 break;
             default:
-                $router->response()->body($controller->error());
+                $router->response()->body(json_encode($controller->error()));
         }
     });
     /** End Error Request */

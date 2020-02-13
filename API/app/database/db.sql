@@ -7,3 +7,12 @@
 
 # End Local Development Only
 
+-- Table User (Login)
+DROP TABLE IF EXISTS User;
+CREATE TABLE IF NOT EXISTS User (
+    ID VARCHAR(50) NOT NULL UNIQUE,
+    Password TEXT NOT NULL,
+    Nama VARCHAR(255),
+
+    CONSTRAINT pk_User_ID PRIMARY KEY(ID)
+)ENGINE=InnoDb;
