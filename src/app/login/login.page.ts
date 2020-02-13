@@ -29,13 +29,14 @@ export class LoginPage implements OnInit {
   verificationPage(){
     this.http.get('https://bpmonline.asia/duanyam/KangOL/user.php?ID='+this.username+'&Pass='+this.password)
     .subscribe(data => {
+      console.log(data);
         this.item_product = data;
         if(this.item_product.length > 0){
         this.ConvertJson = JSON.stringify(this.item_product);
         this.allData = JSON.parse(this.ConvertJson);
           this.storage.set('Active', 'Active');
           this.storage.set('Nama', this.allData[0]['ID']);
-          this.navCtrl.navigateForward('/home');
+          this.navCtrl.navigateForward('/tabs/main');
         }
         else{
           console.log("Oops!");
@@ -50,7 +51,7 @@ export class LoginPage implements OnInit {
 
     async presentAlert() {
       const alert = await this.alertCtrl.create({
-        message: 'User Not find',
+        message: 'User Not Found!',
         buttons: ['OK']
       });
       await alert.present();

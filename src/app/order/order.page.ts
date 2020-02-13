@@ -87,12 +87,11 @@ export class OrderPage implements OnInit {
     return await this.loading.dismiss();
   }
   
-
   home(){
-    this.navCtrl.navigateForward('/home');
+    this.navCtrl.navigateForward('/tabs/main');
   }
   cancel(){
-    this.navCtrl.navigateForward('/product');
+    this.navCtrl.navigateForward('/tabs/product');
   }
   closed(){
     this.present();
@@ -135,17 +134,17 @@ export class OrderPage implements OnInit {
       this.storage.set('ClosedOrder', this.AddArray);
     });
     
-    this.navCtrl.navigateForward('/home');
+    this.navCtrl.navigateForward('/tabs/main');
   }
   product(){
-    this.navCtrl.navigateForward('/product');
+    this.navCtrl.navigateForward('/tabs/product');
   }
 
   sync() {
-    this.navCtrl.navigateForward('/sync');
+    this.navCtrl.navigateForward('/tabs/sync');
   }
   payment() {
-    this.navCtrl.navigateForward('/payment');
+    this.navCtrl.navigateForward('/tabs/payment');
   }
 
   doRefresh(event) {

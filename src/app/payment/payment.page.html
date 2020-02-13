@@ -1,3 +1,9 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title text-center>Basket Payment</ion-title>
+  </ion-toolbar>
+</ion-header>
+
 <ion-content color="secondary">
 
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
@@ -8,16 +14,7 @@
       refreshingText="Refreshing...">
     </ion-refresher-content>
   </ion-refresher>
-
-  <div class="box">
-    <div class="user">
-      <div class="logo-center">
-        <img src="../assets/img/logo/logo.jpg" >
-      </div>
-    </div>
-  </div>
-  
-  
+ 
   <div class="box" style="margin-top:10px;color: #767676;">
     <ion-row>
       <ion-col size="2">
@@ -59,32 +56,4 @@
     </ion-row>
   </div>
   
-  
-  
-  </ion-content>
-  
-  <ion-footer>
-    <ion-toolbar>
-      <ion-buttons>
-        <ion-grid style="text-align: center;">
-          <ion-row>
-            <ion-col>
-              <button ion-button style="background-color:#fffdff" (click)="home()">
-                <ion-icon name="home" style="font-size:40px;color:#9aa3aa;"></ion-icon>
-              </button>
-            </ion-col>
-            <ion-col>
-              <button ion-button style="background-color:#fffdff" (click)="sync()">
-                <ion-icon name="ios-apps" style="font-size:40px;color:#9aa3aa;"></ion-icon>
-              </button>
-            </ion-col>
-            <ion-col>
-              <button ion-button style="background-color:#fffdff" (click)="payment()">
-                <ion-icon name="ios-basket" style="font-size:40px;color:#9aa3aa;"></ion-icon>
-              </button>
-            </ion-col>
-            </ion-row>
-          </ion-grid>
-        </ion-buttons>
-      </ion-toolbar>
-    </ion-footer>
+</ion-content>

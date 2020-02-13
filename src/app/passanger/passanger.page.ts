@@ -26,19 +26,19 @@ export class PassangerPage implements OnInit {
   }
   waiting(x){
     this.storage.set('Seat', x);
-    this.navCtrl.navigateForward('/waiting');
+    this.navCtrl.navigateForward('/tabs/waiting');
   }
   sync() {
-    this.navCtrl.navigateForward('/sync');
+    this.navCtrl.navigateForward('/tabs/sync');
   }
   product2() {
-    this.navCtrl.navigateForward('/product2');
+    this.navCtrl.navigateForward('/tabs/product2');
   }
   payment() {
-    this.navCtrl.navigateForward('/payment');
+    this.navCtrl.navigateForward('/tabs/payment');
   }
   passanger() {
-    this.navCtrl.navigateForward('/passanger');
+    this.navCtrl.navigateForward('/tabs/passanger');
   }
 
 }

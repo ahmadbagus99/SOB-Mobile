@@ -4,6 +4,7 @@ import { Storage } from '@ionic/storage';
 import { HTTP } from '@ionic-native/http/ngx';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { ProductFilterService } from '../filter/product-filter.service';
 
 @Component({
   selector: 'app-product',
@@ -11,26 +12,36 @@ import { Observable } from 'rxjs';
   styleUrls: ['./product.page.scss'],
 })
 export class ProductPage implements OnInit {
+
+  public searchTerm: string = "";
   public currentNumber = 0;
   public total = 0;
   public grand = 0;
-  items : any = [];
   public ArrayInput : any = [];
   public ArrayInput2 : any = [];
-  product : any = [];
-  User:string;
   public AddArray:Array<string> = new Array();
   public AddArray2:Array<string> = new Array();
-
+  items : any = [];
+  product : any = [];
+  User:string;
+  
   constructor(
-    public navCtrl: NavController,
-    public storage: Storage, 
-    public alertController: AlertController,
-    public http: HttpClient) {
+              public navCtrl: NavController,
+              public storage: Storage, 
+              public alertController: AlertController,
+              public http: HttpClient,
+              private filterData : ProductFilterService
+    ) {
     this.getdata();
    }
+   ngOnInit(){
+    this.setFilteredItems();
+  }
 
-  ngOnInit() {}
+  setFilteredItems() {
+    this.items = this.filterData.filterProduct(this.searchTerm);
+  }
+
   getdata(){
     this.storage.get('ProductData').then((val) => {
         this.items = val;
@@ -41,8 +52,6 @@ export class ProductPage implements OnInit {
     
   }
   order(){
-
-    
     for(let i = 0; i<this.items.length; i++){
       this.total = 0;
       this.grand = 0;
@@ -65,10 +74,7 @@ export class ProductPage implements OnInit {
     }
 
     this.storage.set('DataOrder', this.AddArray2);
-    this.navCtrl.navigateForward('/order');
-  }
-  home(){
-    this.navCtrl.navigateForward('/home');
+    this.navCtrl.navigateForward('/tabs/order');
   }
 
   public increment (Product, Price, Seat) {
@@ -82,13 +88,13 @@ export class ProductPage implements OnInit {
   }
 
   sync() {
-    this.navCtrl.navigateForward('/sync');
+    this.navCtrl.navigateForward('/tabs/sync');
   }
   payment() {
-    this.navCtrl.navigateForward('/payment');
+    this.navCtrl.navigateForward('/tabs/payment');
   }
   waiting() {
-    this.navCtrl.navigateForward('/waiting');
+    this.navCtrl.navigateForward('/tabs/waiting');
   }
 
   suma (Product, Price, Seat){

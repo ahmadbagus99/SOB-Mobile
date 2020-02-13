@@ -4,6 +4,7 @@ import { Storage } from '@ionic/storage';
 import { HTTP } from '@ionic-native/http/ngx';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { ProductFilterService } from '../filter/product-filter.service';
 
 @Component({
   selector: 'app-product2',
@@ -11,14 +12,28 @@ import { Observable } from 'rxjs';
   styleUrls: ['./product2.page.scss'],
 })
 export class Product2Page implements OnInit {
+
+  public searchTerm: string = "";
   items : any = [];
-  constructor(public navCtrl: NavController,public storage: Storage, public alertController: AlertController,public http: HttpClient) {
+
+  constructor(
+              public navCtrl: NavController,
+              public storage: Storage, 
+              public alertController: AlertController,
+              public http: HttpClient,
+              private filterData : ProductFilterService
+            ) {
     this.getdata();
    }
-
-  ngOnInit() {
-  }
   
+  ngOnInit(){
+    this.setFilteredItems();
+  }
+
+  setFilteredItems() {
+    this.items = this.filterData.filterProduct(this.searchTerm);
+  }
+
   order(){
     this.navCtrl.navigateForward('/order');
   }
@@ -40,6 +55,4 @@ export class Product2Page implements OnInit {
         this.items = val;
     });
   }
-  
-
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController,LoadingController,AlertController  } from '@ionic/angular';
+import { NavController, LoadingController, AlertController  } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { HTTP } from '@ionic-native/http/ngx';
 import { HttpClient } from '@angular/common/http';
@@ -10,7 +10,7 @@ import { CallNumber } from '@ionic-native/call-number/ngx';
   templateUrl: './waiting.page.html',
   styleUrls: ['./waiting.page.scss'],
 })
-export class WaitingPage implements OnInit {
+export class WaitingPage {
   Name:string;
   Description:string;
   Address:string;
@@ -32,11 +32,11 @@ export class WaitingPage implements OnInit {
     public storage: Storage,
     public http: HttpClient,
     public alertController: AlertController,
-    private callNumber: CallNumber) { 
-    this.getData();
+    private callNumber: CallNumber
+    ) { 
   }
 
-  ngOnInit() {
+  ionViewWillEnter(){
     this.getData();
   }
 
@@ -76,20 +76,20 @@ export class WaitingPage implements OnInit {
   }
 
   home(){
-    this.navCtrl.navigateForward('/home');
+    this.navCtrl.navigateForward('/tabs/home');
   }
 
   product(){
-    this.navCtrl.navigateForward('/product');
+    this.navCtrl.navigateForward('/tabs/product');
   }
   passanger(){
-    this.navCtrl.navigateForward('/passanger');
+    this.navCtrl.navigateBack('/tabs/passanger');
   }
   sync() {
-    this.navCtrl.navigateForward('/sync');
+    this.navCtrl.navigateForward('/tabs/sync');
   }
   payment() {
-    this.navCtrl.navigateForward('/payment');
+    this.navCtrl.navigateForward('/tabs/payment');
   }
 
   doRefresh(event) {

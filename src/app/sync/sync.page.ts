@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { NavController,LoadingController,AlertController  } from '@ionic/angular';
+import { NavController,LoadingController, AlertController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { HTTP } from '@ionic-native/http/ngx';
 import { HttpClient } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-sync',
@@ -19,35 +20,68 @@ export class SyncPage {
   User:string;
   Send: any;
   isLoading = false;
-  constructor(public navCtrl: NavController,public storage: Storage, public http: HttpClient,public alertCtrl: AlertController,public loading: LoadingController) { }
 
-  ngOnInit() {
+  constructor(
+              public navCtrl: NavController,
+              public storage: Storage, 
+              public http: HttpClient, 
+              public alertCtrl: AlertController,
+              public loading: LoadingController)
+             { }
+
+  async ConfirmLogOut(){
+    let alert = await this.alertCtrl.create({
+      message: 'Are You Sure? ',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+        },
+        {
+          text: 'Yes',
+          handler: () => {
+            this.logout();
+          }
+        }
+      ]
+    });
+    alert.present();
   }
 
   home() {
-    this.navCtrl.navigateForward('/home');
+    this.navCtrl.navigateForward('/tabs/home');
   }
   sync() {
-    this.navCtrl.navigateForward('/sync');
+    this.navCtrl.navigateForward('/tabs/sync');
   }
   product2() {
-    this.navCtrl.navigateForward('/product2');
+    this.navCtrl.navigateForward('/tabs/product2');
   }
   payment() {
-    this.navCtrl.navigateForward('/payment');
+    this.navCtrl.navigateForward('/tabs/payment');
   }
   service() {
-    this.navCtrl.navigateForward('/service');
+    this.navCtrl.navigateForward('/tabs/service');
   }
   logout(){
     this.storage.set('Active', 'logout');
-    this.navCtrl.navigateForward('/login');
+    this.navCtrl.navigateForward('login');
+    /*
+    Remove Storage 
+    */
+   this.storage.remove("Active");
+   this.storage.remove("ClosedOrder");
+   this.storage.remove("Description");
+   this.storage.remove("FlightData");
+   this.storage.remove("Nama");
+   this.storage.remove("Seat");
+   this.storage.remove("passangerData");
+   this.storage.remove("ProductData");
   }
   syn(){
     this.present();
     this.upload_data();
     this.sync_flight();
-    
   }
   order(){
     this.navCtrl.navigateForward('/order');
