@@ -39,7 +39,7 @@ class Login extends Controller
 
         // check username dan password tidak boleh kosong
         if(!$isUsernameValid || !$isPasswordValid) {
-            $this->requestError(400, "Username dan Password harus diisi");
+            $this->requestError(200, "Username dan Password harus diisi");
         }
 
         // check username dan password di database
@@ -49,7 +49,7 @@ class Login extends Controller
         // $checkPassword = password_verify($this->data->password, $getUser->data[0]['Password']);
 
         if(!$getUserValid || !$checkPassword) {
-            $this->requestError(401, "Username dan Password anda salah");
+            $this->requestError(200, "Username dan Password anda salah");
         }
 
         $result->success = true;

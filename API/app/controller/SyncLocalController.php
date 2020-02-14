@@ -35,13 +35,13 @@ class SyncLocal extends Controller
 
         // check SRMId dan Product List tidak boleh kosong
         if(!$isSRMIdValid || !$isProductListValid) {
-            $this->requestError(400, "Sales Record Movement Id atau Product List tidak boleh kosong");
+            $this->requestError(200, "Sales Record Movement Id atau Product List tidak boleh kosong");
         }
 
         // update data mobile ke local
         $update = $this->Sync->syncLocal($this->data);
         if(!$update->success) {
-            $this->requestError(400, "Proses Sync Gagal: ". $update->error);
+            $this->requestError(200, "Proses Sync Gagal: ". $update->error);
         }        
 
         $result->success = true;
