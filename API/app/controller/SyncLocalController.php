@@ -3,7 +3,6 @@ Defined('BASE_PATH') or die(ACCESS_DENIED);
 
 class SyncLocal extends Controller
 {
-    private $syncSource; // local , mobile
     private $data = null;
 
     public function __construct() {
@@ -26,8 +25,6 @@ class SyncLocal extends Controller
             'message' => '',
             'syncResult' => null
         );
-        
-        $this->syncSource = 'mobile';
 
         // get request body
         $this->data = json_decode(file_get_contents("php://input"));
@@ -38,21 +35,13 @@ class SyncLocal extends Controller
 
         // check SRMId dan Product List tidak boleh kosong
         if(!$isSRMIdValid || !$isProductListValid) {
-            $result->success = false;
-            $result->message = "Sales Record Movement Id atau Product List tidak boleh kosong";
-
-            http_response_code(400);
-            die(json_encode($result, JSON_PRETTY_PRINT));
+            $this->requestError(400, "Sales Record Movement Id atau Product List tidak boleh kosong");
         }
 
         // update data mobile ke local
         $update = $this->Sync->syncLocal($this->data);
         if(!$update->success) {
-            $result->success = false;
-            $result->message = "Proses Sync Gagal: ". $update->error;
-
-            http_response_code(400);
-            die(json_encode($result, JSON_PRETTY_PRINT));
+            $this->requestError(400, "Proses Sync Gagal: ". $update->error);
         }        
 
         $result->success = true;
@@ -70,7 +59,6 @@ class SyncLocal extends Controller
      * Proses Sync data yang ada di local ke mobile
      */
     public function syncToMobile() {
-        $this->syncSource = 'local';
     }
 
     /**

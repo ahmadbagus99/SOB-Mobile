@@ -39,11 +39,7 @@ class Login extends Controller
 
         // check username dan password tidak boleh kosong
         if(!$isUsernameValid || !$isPasswordValid) {
-            $result->success = false;
-            $result->message = "Username dan Password harus diisi";
-
-            http_response_code(400);
-            die(json_encode($result, JSON_PRETTY_PRINT));
+            $this->requestError(400, "Username dan Password harus diisi");
         }
 
         // check username dan password di database
@@ -53,11 +49,7 @@ class Login extends Controller
         // $checkPassword = password_verify($this->data->password, $getUser->data[0]['Password']);
 
         if(!$getUserValid || !$checkPassword) {
-            $result->success = false;
-            $result->message = "Username dan Password anda salah";
-
-            http_response_code(401);
-            die(json_encode($result, JSON_PRETTY_PRINT));
+            $this->requestError(401, "Username dan Password anda salah");
         }
 
         $result->success = true;
