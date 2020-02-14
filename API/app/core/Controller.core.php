@@ -27,15 +27,11 @@ class Controller {
     /**
      * 
      */
-    final public function requestError($errorCode, $message, $json = true) {
+    final public function requestError($errorCode, $message) {
         http_response_code($errorCode);
-        header("Content-Type: application/json");
-        header("Accept: application/json");
-        echo json_encode(array(
+        die(json_encode(array(
             'success' => false,
             'message' => $message
-        ), JSON_PRETTY_PRINT);
-
-        die();
+        ), JSON_PRETTY_PRINT));
     }
 }
