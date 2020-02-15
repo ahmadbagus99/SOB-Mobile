@@ -15,15 +15,24 @@ import { AppRoutingModule } from './app-routing.module';
 import { AuthGuardService } from './publicServices/auth-guard.service';
 import { AuthenticationService } from './publicServices/authentication.service';
 
+import { HttpModule } from '@angular/http';
+import { Integration } from './publicServices/Integration'
+
 // import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
 // const config: SocketIoConfig = { url: 'http://socketserver.bpmonline.asia/list_order.js/api/get-motor-details', options: {} };
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,IonicStorageModule.forRoot(),HttpClientModule],
+  imports: [
+    BrowserModule, 
+    IonicModule.forRoot(), 
+    AppRoutingModule,IonicStorageModule.forRoot(),
+    HttpClientModule,
+    HttpModule
+  ],
   providers: [
-
+    Integration,
     StatusBar,
     SplashScreen,
     AuthGuardService,

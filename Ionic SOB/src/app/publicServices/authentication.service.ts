@@ -23,7 +23,6 @@ export class AuthenticationService {
   checkToken(){
     this.storage.get("Nama").then(res =>{
       if (res){
-        console.log('Masuk')
         this.authenticationState.next(true);
       }
     })

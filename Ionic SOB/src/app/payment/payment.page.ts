@@ -38,6 +38,7 @@ export class PaymentPage implements OnInit {
   getData(){
     this.present();
     this.storage.get('ClosedOrder').then((val) => {
+      console.log('Data Order', val)
       this.allData=val;
       this.currentNumber =0;
       for(let i = 0; i<this.allData.length; i++){

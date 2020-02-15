@@ -17,14 +17,16 @@ export class Product2Page implements OnInit {
   items : any = [];
 
   constructor(
-    public navCtrl: NavController,
-    public storage: Storage, 
-    public alertController: AlertController,
-    public http: HttpClient,
-    private filterData : ProductFilterService
+      public navCtrl: NavController,
+      public storage: Storage, 
+      public alertController: AlertController,
+      public http: HttpClient,
+      private filterData : ProductFilterService
     ) {
+    }
+  ionViewWillEnter(){
     this.getdata();
-   }
+  }
   
   ngOnInit(){
     this.setFilteredItems();

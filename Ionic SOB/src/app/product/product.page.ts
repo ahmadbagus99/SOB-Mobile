@@ -32,9 +32,12 @@ export class ProductPage implements OnInit {
     public http: HttpClient,
     private filterData : ProductFilterService
     ) {
+    }
+  
+  ionViewWillEnter(){
     this.getdata();
-   }
-   ngOnInit(){
+  }
+  ngOnInit(){
     this.setFilteredItems();
   }
 
@@ -52,6 +55,7 @@ export class ProductPage implements OnInit {
     
   }
   order(){
+    this.AddArray2 = [];
     for(let i = 0; i<this.items.length; i++){
       this.total = 0;
       this.grand = 0;
@@ -63,16 +67,19 @@ export class ProductPage implements OnInit {
         } 
       }
       this.ArrayInput2 = { 
+        Id : this.items[i]['ID'],
         Product : this.items[i]['Nama'], 
-        Price : this.items[i]['Nama'], 
+        Price : this.items[i]["Price"],
+        User : this.items[i]["User"],
+        Passenger : this.items[i]["Passenger"],
         Flight : this.items[i]['Flight'], 
-        Qty : this.total,
+        Stock : this.items[i]['Stock'],
+        Qty : this.items[i].Qty = this.total,
         Seat : this.User,
-        Total : this.grand
+        Total : this.items[i].Total = this.grand
       };
       this.AddArray2.push(this.ArrayInput2);
     }
-
     this.storage.set('DataOrder', this.AddArray2);
     this.navCtrl.navigateForward('/tabs/order');
   }

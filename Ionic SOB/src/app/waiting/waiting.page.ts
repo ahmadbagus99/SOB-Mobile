@@ -11,10 +11,11 @@ import { CallNumber } from '@ionic-native/call-number/ngx';
   styleUrls: ['./waiting.page.scss'],
 })
 export class WaitingPage {
+
   Name:string;
   Description:string;
   Address:string;
-  isLoading = false;
+  isLoading : boolean = true;
   items : any = [];
   items2 : any = [];
   ArrayInput : any = [];
@@ -25,7 +26,6 @@ export class WaitingPage {
   allData: any;
   seat:string;
   
-
   constructor(
     public loading: LoadingController,
     public navCtrl: NavController,
@@ -34,16 +34,26 @@ export class WaitingPage {
     public alertController: AlertController,
     private callNumber: CallNumber
     ) { 
-  }
+    }
 
   ionViewWillEnter(){
     this.getData();
   }
 
-  getData(){
-    this.present();
+  async getData(){
+    const loading = await this.loading.create({
+      message : "",
+      spinner: 'crescent',
+      translucent : true,
+      cssClass:'custom-loader-class',
+      mode: 'md',
+    });
+    await loading.present();
     this.storage.get('passangerData').then((val) => {
-      this.items = val;
+      loading.dismiss().then(()=>{
+        this.isLoading = true;
+        this.items = val;
+      })
         this.storage.get('Seat').then((val2) => {
           this.seat = val2;
       });
@@ -51,29 +61,6 @@ export class WaitingPage {
     this.storage.get('FlightData').then((val2) => {
       this.items2 = val2;
     });
-  }
-
-  async present() {
-    this.isLoading = true;
-    return await this.loading.create({
-      message : "",
-      spinner: 'crescent',
-      translucent : true,
-      cssClass:'custom-loader-class',
-      mode: 'md',
-      duration: 2000,
-    }).then(a => {
-      a.present().then(() => {
-        if (!this.isLoading) {
-          a.dismiss();
-        }
-      });
-    });
-  }
-
-  async dismiss() {
-    this.isLoading = false;
-    return await this.loading.dismiss();
   }
 
   home(){

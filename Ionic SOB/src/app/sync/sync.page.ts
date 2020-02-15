@@ -3,6 +3,7 @@ import { NavController,LoadingController, AlertController } from '@ionic/angular
 import { Storage } from '@ionic/storage';
 import { HTTP } from '@ionic-native/http/ngx';
 import { HttpClient } from '@angular/common/http';
+import { Integration } from '../publicServices/Integration';
 
 
 @Component({
@@ -22,12 +23,14 @@ export class SyncPage {
   isLoading = false;
 
   constructor(
-              public navCtrl: NavController,
-              public storage: Storage, 
-              public http: HttpClient, 
-              public alertCtrl: AlertController,
-              public loading: LoadingController)
-             { }
+    public navCtrl: NavController,
+    public storage: Storage, 
+    public http: HttpClient, 
+    public alertCtrl: AlertController,
+    public loading: LoadingController,
+    private itGration : Integration
+  )
+  { }
 
   async ConfirmLogOut(){
     let alert = await this.alertCtrl.create({
@@ -77,11 +80,37 @@ export class SyncPage {
    this.storage.remove("Seat");
    this.storage.remove("passangerData");
    this.storage.remove("ProductData");
+   this.storage.remove("DataOrder");
   }
   syn(){
-    this.present();
-    this.upload_data();
-    this.sync_flight();
+     //Sync to Creatio
+     this.storage.get("ProductData").then(data =>{
+       var ProductData = data;
+       var SyncData = [];
+     if(ProductData){
+       for(let data = 0; data<ProductData.length; data++){
+         let body = { 
+           Id : ProductData[data]['ID'],
+           Stock : ProductData[data]['Stock'],
+           Sold : ProductData[data]['Sold'],
+           Total : ProductData[data]['Total']   
+         };
+         SyncData.push(body);
+       }
+     }
+     let SyncBody = {
+       SalesRecordMovement : '',
+       Status : 'Closing',
+       ProductList : SyncData
+     }
+     console.log(SyncBody)
+     this.itGration.postData(SyncBody, 'sync/mobile-to-local').subscribe(data=>{
+       console.log(data);
+     })
+     })
+    // this.present();
+    // this.upload_data();
+    // this.sync_flight();
   }
   order(){
     this.navCtrl.navigateForward('/order');

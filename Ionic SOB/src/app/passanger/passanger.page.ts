@@ -17,7 +17,8 @@ export class PassangerPage implements OnInit {
     public navCtrl: NavController,
     public storage: Storage, 
     public alertController: AlertController,
-    public http: HttpClient) { }
+    public http: HttpClient
+  ) { }
 
   ngOnInit() {
   }

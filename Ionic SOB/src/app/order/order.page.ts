@@ -8,12 +8,12 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './order.page.html',
   styleUrls: ['./order.page.scss'],
 })
-export class OrderPage implements OnInit {
+export class OrderPage {
   public currentNumber = 0;
   Name:string;
   Description:string;
   Address:string;
-  isLoading = false;
+  isLoading : boolean = true;
   items : any = [];
   ArrayInput : any = [];
   current:string;
@@ -27,6 +27,7 @@ export class OrderPage implements OnInit {
   seat:string;
   items2 : any = [];
   items3 : any = [];
+  MasterDataProduct = [];
   public AddArray:Array<string> = new Array();
 
   constructor(
@@ -39,12 +40,23 @@ export class OrderPage implements OnInit {
     this.getData();
   }
 
-  ngOnInit() {
+  ionViewWillEnter(){
     this.getData();
+    this.storage.get("ProductData").then(data =>{
+      this.MasterDataProduct = data;
+    })
   }
 
-  getData(){
-    this.present();
+  async getData(){
+    const loading = await this.loading.create({
+      message : "",
+      spinner: 'crescent',
+      translucent : true,
+      cssClass:'custom-loader-class',
+      mode: 'md',
+    });
+    loading.present();
+
     this.storage.get('passangerData').then((val) => {
       this.items = val;
         this.storage.get('Seat').then((val2) => {
@@ -57,30 +69,17 @@ export class OrderPage implements OnInit {
     });
 
     this.storage.get('DataOrder').then((val) => {
-      this.items3 = val;
+      loading.dismiss().then(()=>{
+        this.isLoading = false;
+        this.items3 = val;
+      })
+      
       this.currentNumber = 0;
       for(let i = 0; i<this.items3.length; i++){
         this.currentNumber = this.currentNumber + this.items3[i]['Total'];
       }
     });
 
-  }
-  async present() {
-    this.isLoading = true;
-    return await this.loading.create({
-      message : "",
-      spinner: 'crescent',
-      translucent : true,
-      cssClass:'custom-loader-class',
-      mode: 'md',
-      duration: 2000,
-    }).then(a => {
-      a.present().then(() => {
-        if (!this.isLoading) {
-          a.dismiss();
-        }
-      });
-    });
   }
 
   async dismiss() {
@@ -92,17 +91,26 @@ export class OrderPage implements OnInit {
     this.navCtrl.navigateForward('/tabs/main');
   }
   cancel(){
+    this.storage.remove('DataOrder');
     this.navCtrl.navigateForward('/tabs/product');
   }
-  closed(){
-    this.present();
+  async closed(){
+    const loading = await this.loading.create({
+      message : "",
+      spinner: 'crescent',
+      translucent : true,
+      cssClass:'custom-loader-class',
+      mode: 'md',
+    });
+    loading.present();
+
     this.ConvertJson = JSON.stringify(this.items);
     this.allData = JSON.parse(this.ConvertJson);
 
     this.ConvertJson2 = JSON.stringify(this.items2);
     this.allData2 = JSON.parse(this.ConvertJson2);
 
-    this.storage.get('ClosedOrder').then((val) => {
+    this.storage.get('DataOrder').then((val) => {
       this.allData3 = val;
       if(this.allData3){
         for(let ii = 0; ii<this.allData3.length; ii++){
@@ -114,25 +122,34 @@ export class OrderPage implements OnInit {
             Seat : this.allData3[ii]['Seat'],
             NamaPassanger : this.allData[0]['Nama'],  
             NoFlight : this.allData2[0]['No'], 
-            Qty : this.allData3[ii]['Qty']
+            Qty : this.allData3[ii]['Qty'],
           };
           this.AddArray.push(this.ArrayInput);
         }
       }
-      for(let i = 0; i<this.items3.length; i++){
-        this.ArrayInput = { 
-          Product : this.items3[i]['Product'], 
-          Total : this.items3[i]['Total'], 
-          Passanger : this.allData[0]['ID'],
-          Flight : this.allData2[0]['ID'],
-          Seat : this.seat,
-          NamaPassanger : this.allData[0]['Nama'],  
-          NoFlight : this.allData2[0]['No'],  
-          Qty : this.items3[i]['Qty']
-        };
-        this.AddArray.push(this.ArrayInput);
+      //Update Product Qty
+      var DataProduct = [];
+      if(this.allData3){
+        for(let data = 0; data<this.allData3.length; data++){
+          let body = { 
+            ID : this.allData3[data]['Id'],
+            Nama : this.allData3[data]['Product'], 
+            Price : this.allData3[data]['Price'],
+            Stock : this.allData3[data]['Stock'] - this.allData3[data]['Qty'],
+            Flight : this.allData3[data]['Flight'],
+            Passanger : this.allData3[data]['Passenger'],
+            User : this.allData3[data]['User'],
+            Qty : this.allData3[data]['Qty'],
+            Total : this.allData3[data]['Total']   
+          };
+          DataProduct.push(body);
+        }
       }
-      this.storage.set('ClosedOrder', this.AddArray);
+      loading.dismiss().then(()=>{
+        this.isLoading = false;
+        this.storage.set('ProductData', DataProduct);
+        this.storage.set('ClosedOrder', this.AddArray);
+      })
     });
     
     this.navCtrl.navigateForward('/tabs/main');
