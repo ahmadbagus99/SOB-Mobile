@@ -81,6 +81,9 @@ export class SyncPage {
    this.storage.remove("passangerData");
    this.storage.remove("ProductData");
    this.storage.remove("DataOrder");
+   this.storage.remove("NamePassenger");
+   this.storage.remove("DataPreOrder")
+   this.storage.remove("CloseOrderNew")
   }
   syn(){
      //Sync to Creatio

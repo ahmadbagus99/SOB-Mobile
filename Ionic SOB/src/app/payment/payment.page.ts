@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './payment.page.html',
   styleUrls: ['./payment.page.scss'],
 })
-export class PaymentPage implements OnInit {
+export class PaymentPage {
   public currentNumber = 0;
   Name:string;
   Description:string;
@@ -26,54 +26,32 @@ export class PaymentPage implements OnInit {
     public navCtrl: NavController,
     public storage: Storage,
     public http: HttpClient,
-    public alertController: AlertController) { 
-    this.refresh();
+    public alertController: AlertController
+    ) { 
+  }
+
+  ionViewWillEnter() {
     this.getData();
   }
 
-  ngOnInit() {
-    this.getData();
-  }
-
-  getData(){
-    this.present();
-    this.storage.get('ClosedOrder').then((val) => {
-      console.log('Data Order', val)
-      this.allData=val;
-      this.currentNumber =0;
-      for(let i = 0; i<this.allData.length; i++){
-        this.currentNumber = this.currentNumber + this.allData[i]['Total'];
-      }
-    });
-    this.storage.get('FlightData').then((val2) => {
-      this.items2 = val2;
-    });
-  }
-  
-
-  async present() {
-    this.isLoading = true;
-    return await this.loading.create({
+  async getData(){
+    const loading = await this.loading.create({
       message : "",
       spinner: 'crescent',
       translucent : true,
       cssClass:'custom-loader-class',
       mode: 'md',
-      duration: 2000
-    }).then(a => {
-      a.present().then(() => {
-        if (!this.isLoading) {
-          a.dismiss();
-        }
-      });
     });
+    loading.present();
+    loading.dismiss().then(()=>{
+      this.storage.get('CloseOrderNew').then( data => {
+        this.items = data;
+      });
+      this.storage.get('FlightData').then((val2) => {
+        this.items2 = val2;
+      });
+    })
   }
-
-  async dismiss() {
-    this.isLoading = false;
-    return await this.loading.dismiss();
-  }
-
   home(){
     this.navCtrl.navigateForward('/home');
   }

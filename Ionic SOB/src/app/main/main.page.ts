@@ -20,7 +20,7 @@ intervalHandle: any = null;
 lenghtArray: any = null;
 FlightData : any = [];
 ID:string;
-
+testdata : string;
   constructor(
     public navCtrl: NavController,
     public alertCtrl: AlertController,
@@ -65,32 +65,31 @@ ID:string;
   };
   
   getdata(){
-    console.log('Get Data is running...')
+    // console.log('Get Data is running...')
     this.storage.get('FlightData').then((val) => {
         this.items = val;
     });
     this.storage.get('ClosedOrder').then((val) => {
-     console.log(val);
+    //  console.log(val);
   });
   }
 
   refresh(){
     this.getdata();
-    console.log('Begin async operation');
+    // console.log('Begin async operation');
 
     setTimeout(() => {
-      console.log('Async operation has ended');
+      // console.log('Async operation has ended');
     }, 2000);
   }
 
   doRefresh(event) {
     this.getdata();
-    console.log('Begin async operation');
+    // console.log('Begin async operation');
 
     setTimeout(() => {
-      console.log('Async operation has ended');
+      // console.log('Async operation has ended');
       event.target.complete();
     }, 2000);
   }
-
 }

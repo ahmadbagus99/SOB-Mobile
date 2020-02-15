@@ -68,6 +68,10 @@ export class WaitingPage {
   }
 
   product(){
+    this.items.forEach(data => {
+      if ( data.Seat == this.seat )
+        this.storage.set('NamePassenger', data.Nama)
+    });
     this.navCtrl.navigateForward('/tabs/product');
   }
   passanger(){

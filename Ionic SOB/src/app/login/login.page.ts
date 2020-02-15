@@ -54,9 +54,10 @@ export class LoginPage implements OnInit {
         this.ConvertJson = JSON.stringify(this.item_product);
         this.allData = JSON.parse(this.ConvertJson);
         this.storage.set('Active', 'Active');
-        this.storage.set('Nama', this.allData[0]['ID']);
+        this.storage.set('Nama', this.allData[0]['ID']).then(()=>{
+          this.sync();
+        })
           loading.dismiss().then(()=>{
-            this.sync();
             this.authenticationService.authenticationState.next(true);
           })
         }
@@ -89,7 +90,7 @@ export class LoginPage implements OnInit {
           .subscribe(data => {
               this.flightData = data;
               if(this.flightData.length > 0){
-              console.log(this.flightData);
+              // console.log(this.flightData);
               this.storage.set('FlightData', this.flightData);
               }
               else{
@@ -106,7 +107,7 @@ export class LoginPage implements OnInit {
           .subscribe(data2 => {
               this.ProductData = data2;
               if(this.ProductData.length > 0){
-              console.log(this.ProductData);
+              // console.log(this.ProductData);
               this.storage.set('ProductData', this.ProductData);
               }
               else{
@@ -123,7 +124,7 @@ export class LoginPage implements OnInit {
           .subscribe(data3 => {
               this.passangerData = data3;
               if(this.passangerData.length > 0){
-              console.log(this.passangerData);
+              // console.log(this.passangerData);
               this.storage.set('passangerData', this.passangerData);
               this.storage.set('ClosedOrder', '');
               this.storage.set('Description', '');

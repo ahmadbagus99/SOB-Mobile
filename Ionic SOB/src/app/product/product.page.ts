@@ -23,7 +23,8 @@ export class ProductPage implements OnInit {
   public AddArray2:Array<string> = new Array();
   items : any = [];
   product : any = [];
-  User:string;
+  Seat : string;
+  NamePassenger : string;
   
   constructor(
     public navCtrl: NavController,
@@ -36,6 +37,7 @@ export class ProductPage implements OnInit {
   
   ionViewWillEnter(){
     this.getdata();
+    this.AddArray = [];
   }
   ngOnInit(){
     this.setFilteredItems();
@@ -50,8 +52,11 @@ export class ProductPage implements OnInit {
         this.items = val;
     });
     this.storage.get('Seat').then((val2) => {
-      this.User = val2;
+      this.Seat = val2;
   });
+    this.storage.get('NamePassenger').then(val3 => {
+      this.NamePassenger = val3;
+    })
     
   }
   order(){
@@ -74,12 +79,21 @@ export class ProductPage implements OnInit {
         Passenger : this.items[i]["Passenger"],
         Flight : this.items[i]['Flight'], 
         Stock : this.items[i]['Stock'],
-        Qty : this.items[i].Qty = this.total,
-        Seat : this.User,
-        Total : this.items[i].Total = this.grand
+        Seat : this.Seat,
+        Qty : this.total,
+        Total : this.grand
       };
       this.AddArray2.push(this.ArrayInput2);
     }
+    //Data Close Order
+      var DataPreOrder = [];
+          let body = {
+            NamaPassanger : this.NamePassenger,
+            Seat : this.Seat,
+            Product : this.AddArray[0]['Product']
+        }
+        DataPreOrder.push(body);
+        this.storage.set('DataPreOrder', DataPreOrder);
     this.storage.set('DataOrder', this.AddArray2);
     this.navCtrl.navigateForward('/tabs/order');
   }

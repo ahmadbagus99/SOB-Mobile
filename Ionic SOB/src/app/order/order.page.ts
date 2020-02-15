@@ -27,24 +27,21 @@ export class OrderPage {
   seat:string;
   items2 : any = [];
   items3 : any = [];
-  MasterDataProduct = [];
   public AddArray:Array<string> = new Array();
-
+  NamePassenger : string;
+  ProductChoose : string;
+  
   constructor(
     public loading: LoadingController,
     public navCtrl: NavController,
     public storage: Storage,
     public http: HttpClient,
-    public alertController: AlertController) { 
-    this.refresh();
-    this.getData();
+    public alertController: AlertController
+    ) { 
   }
 
   ionViewWillEnter(){
     this.getData();
-    this.storage.get("ProductData").then(data =>{
-      this.MasterDataProduct = data;
-    })
   }
 
   async getData(){
@@ -56,7 +53,12 @@ export class OrderPage {
       mode: 'md',
     });
     loading.present();
-
+    
+    this.storage.get('DataPreOrder').then(data =>{
+      this.NamePassenger = data.map(dataFilter => dataFilter.NamaPassanger).toString();
+      this.ProductChoose = data.map(dataFilter => dataFilter.Product).toString();
+      console.log(this.ProductChoose);
+    })
     this.storage.get('passangerData').then((val) => {
       this.items = val;
         this.storage.get('Seat').then((val2) => {
@@ -112,6 +114,7 @@ export class OrderPage {
 
     this.storage.get('DataOrder').then((val) => {
       this.allData3 = val;
+      this.AddArray = [];
       if(this.allData3){
         for(let ii = 0; ii<this.allData3.length; ii++){
           this.ArrayInput = { 
@@ -119,7 +122,7 @@ export class OrderPage {
             Total : this.allData3[ii]['Total'], 
             Passanger : this.allData[0]['ID'],
             Flight : this.allData2[0]['ID'],
-            Seat : this.allData3[ii]['Seat'],
+            Seat : this.allData3[0]['Seat'],
             NamaPassanger : this.allData[0]['Nama'],  
             NoFlight : this.allData2[0]['No'], 
             Qty : this.allData3[ii]['Qty'],
@@ -127,6 +130,41 @@ export class OrderPage {
           this.AddArray.push(this.ArrayInput);
         }
       }
+         //Data Close Order
+         var CloseOrder = [];
+         this.storage.get('CloseOrderNew').then(data =>{
+           if (data == null){
+             CloseOrder = [];
+             this.allData3.forEach(DataOrder => {
+               if(DataOrder.Product == this.ProductChoose){
+                 let body = {
+                   NamaPassanger : this.NamePassenger,
+                   Seat : this.seat,
+                   Product : DataOrder.Product,
+                   Sold : DataOrder.Qty,
+                   Total : DataOrder.Total
+               }
+                 CloseOrder.push(body);
+                this.storage.set('CloseOrderNew', CloseOrder);
+               }
+             });
+           }else{
+             CloseOrder = data;
+             this.allData3.forEach(DataOrder => {
+               if(DataOrder.Product == this.ProductChoose){
+                 let body = {
+                   NamaPassanger : this.NamePassenger,
+                   Seat : this.seat,
+                   Product : DataOrder.Product,
+                   Sold : DataOrder.Qty,
+                   Total : DataOrder.Total
+               }
+                 CloseOrder.push(body);
+                this.storage.set('CloseOrderNew', CloseOrder);
+               }
+             });
+           }
+         })
       //Update Product Qty
       var DataProduct = [];
       if(this.allData3){
@@ -140,7 +178,7 @@ export class OrderPage {
             Passanger : this.allData3[data]['Passenger'],
             User : this.allData3[data]['User'],
             Qty : this.allData3[data]['Qty'],
-            Total : this.allData3[data]['Total']   
+            Total : this.allData3[data]['Total']
           };
           DataProduct.push(body);
         }
