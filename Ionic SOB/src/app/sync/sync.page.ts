@@ -4,6 +4,7 @@ import { Storage } from '@ionic/storage';
 import { HTTP } from '@ionic-native/http/ngx';
 import { HttpClient } from '@angular/common/http';
 import { Integration } from '../publicServices/Integration';
+import { equal } from 'assert';
 
 
 @Component({
@@ -87,30 +88,39 @@ export class SyncPage {
   }
   syn(){
      //Sync to Creatio
-     this.storage.get("ProductData").then(data =>{
-       var ProductData = data;
-       var SyncData = [];
-     if(ProductData){
-       for(let data = 0; data<ProductData.length; data++){
-         let body = { 
-           Id : ProductData[data]['ID'],
-           Stock : ProductData[data]['Stock'],
-           Sold : ProductData[data]['Sold'],
-           Total : ProductData[data]['Total']   
-         };
-         SyncData.push(body);
-       }
-     }
-     let SyncBody = {
-       SalesRecordMovement : '',
-       Status : 'Closing',
-       ProductList : SyncData
-     }
-     console.log(SyncBody)
-     this.itGration.postData(SyncBody, 'sync/mobile-to-local').subscribe(data=>{
-       console.log(data);
+     this.storage.get('CloseOrderNew').then(data => {
+       var total;
+       data.forEach(element => {
+          if ( element.Id == element.Id){
+            total += parseInt(element.Total)
+          }
+          console.log(total)
+       });
      })
-     })
+    //  this.storage.get("ProductData").then(data =>{
+    //    var ProductData = data;
+    //    var SyncData = [];
+    //  if(ProductData){
+    //    for(let data = 0; data<ProductData.length; data++){
+    //      let body = { 
+    //        Id : ProductData[data]['ID'],
+    //        Stock : ProductData[data]['Stock'],
+    //        Sold : ProductData[data]['Sold'],
+    //        Total : ProductData[data]['Total']   
+    //      };
+    //      SyncData.push(body);
+    //    }
+    //  }
+    //  let SyncBody = {
+    //    SalesRecordMovement : '',
+    //    Status : 'Closing',
+    //    ProductList : SyncData
+    //  }
+    //  console.log(SyncBody)
+    //  this.itGration.postData(SyncBody, 'sync/mobile-to-local').subscribe(data=>{
+    //    console.log(data);
+    //  })
+    //  })
     // this.present();
     // this.upload_data();
     // this.sync_flight();

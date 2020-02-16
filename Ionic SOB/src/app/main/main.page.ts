@@ -20,7 +20,7 @@ intervalHandle: any = null;
 lenghtArray: any = null;
 FlightData : any = [];
 ID:string;
-testdata : string;
+
   constructor(
     public navCtrl: NavController,
     public alertCtrl: AlertController,
@@ -33,6 +33,17 @@ testdata : string;
   ionViewDidEnter(){
     this.refresh();
     this.getdata();
+    var a = [{
+          // name : 'User',
+          age : 32
+          }], 
+        b = [{
+          // name : 'User',
+          age : 32
+        }]
+    var cd = a.concat(b)
+    var c = a.concat(b.filter((age) => a.indexOf(age) < 0))
+    // console.log(c) 
   }
 
   service(Data) {
