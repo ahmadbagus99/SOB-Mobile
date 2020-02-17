@@ -38,9 +38,6 @@ Note = [];
     this.storage.get('Description').then((val) => {
       this.Description=val;
     });
-    this.storage.get('Note').then((val) =>{
-      this.Note = val;
-    })
   }
   /**
    * List Function to Navigate to other Page
@@ -64,7 +61,7 @@ Note = [];
   /**
    * @function# to Add Description
    */
-  save(){
+  async save(){
     var Note = [];
     this.storage.get('Note').then(data =>{
     if ( data == null){
@@ -83,6 +80,13 @@ Note = [];
       this.storage.set('Note', Note);
     }
     })
+    const alert = await this.alertController.create({
+      message: 'Success Added!',
+    })
+    alert.present();
+    setTimeout(()=>{
+        alert.dismiss();
+      }, 1000)
     this.navCtrl.navigateForward('/tabs/main');
   }
   async presentAlert() {

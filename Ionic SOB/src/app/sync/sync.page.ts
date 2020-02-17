@@ -79,7 +79,7 @@ export class SyncPage {
     this.navCtrl.navigateForward('/tabs/payment');
   }
   service() {
-    this.navCtrl.navigateForward('/tabs/service');
+    this.navCtrl.navigateForward('/tabs/report-note');
   }
   /**
    * List Function to Navigate to other Page

@@ -23,6 +23,7 @@ const routes: Routes = [
       { path: 'sync', loadChildren: '../sync/sync.module#SyncPageModule' },
       { path: 'contact', loadChildren: '../contact/contact.module#ContactPageModule' },
       { path: 'flight', loadChildren: '../flight/flight.module#FlightPageModule' },
+      { path: 'report-note', loadChildren: '../report-note/report-note.module#ReportNotePageModule' }
     ]
   },
   {
