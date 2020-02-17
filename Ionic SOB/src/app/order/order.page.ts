@@ -140,7 +140,7 @@ export class OrderPage {
       if (data == null){
         CloseOrder = [];
         this.allData3.forEach(DataOrder => {
-          if(DataOrder.Product == this.ProductChoose){
+          if(DataOrder.Total != 0){
             let body = {
               Id : DataOrder.Id,
               NamaPassanger : this.NamePassenger,
@@ -156,7 +156,7 @@ export class OrderPage {
       }else{
         CloseOrder = data;
         this.allData3.forEach(DataOrder => {
-          if(DataOrder.Product == this.ProductChoose){
+          if(DataOrder.Total != 0){
             let body = {
               Id : DataOrder.Id,
               NamaPassanger : this.NamePassenger,
