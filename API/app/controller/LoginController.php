@@ -9,9 +9,9 @@ class Login extends Controller
         header("Access-Control-Allow-Origin: *");
         header("Content-Type: application/json");
         header("Accept: application/json");
-        header("Access-Control-Allow-Methods: POST");
+        header("Access-Control-Allow-Methods: OPTIONS, POST");
         header("Access-Control-Max-Age: 3600");
-        header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+        header("Access-Control-Allow-Headers: Content-Type, Accept, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
         $this->model('UserModel', 'User');
     }
@@ -44,24 +44,30 @@ class Login extends Controller
 
         // check username dan password di database
         $getUser = $this->User->getUser($this->data->username);
+        $getSyncUser = $this->User->getSyncUser($this->data->username);
         $getUserValid = $getUser->success && count($getUser->data) > 0;
+        $getSyncUserValid = $getSyncUser->success && count($getSyncUser->data) > 0;
         $checkPassword = $getUserValid ? ($this->data->password === $getUser->data[0]["Password"] ? true : false) : false;
-        // $checkPassword = password_verify($this->data->password, $getUser->data[0]['Password']);
+        // $checkPassword = $getUserValid ? password_verify($this->data->password, $getUser->data[0]['Password']) : false;
 
-        if(!$getUserValid || !$checkPassword) {
-            $this->requestError(200, "Username dan Password anda salah");
+        if(!$checkPassword) {
+            $this->requestError(200, "Your Username and Password is wrong");
+        }
+        else if(!$getSyncUserValid) {
+            $this->requestError(200, "Account is not active");
         }
 
         $result->success = true;
-        $result->message = 'Login Sukses';
+        $result->message = 'Login Success';
         $result->data = (object)array(
             // 'token' => generateToken()
             'ID' => $getUser->data[0]["ID"],
             'Nama' => $getUser->data[0]["Nama"],
+            'SalesRecordMovementId' => $getSyncUser->data[0]["Flight"],
             'Actived' => 'Active'
         );
 
         http_response_code(200);
-        die(json_encode($result, JSON_PRETTY_PRINT));
+        echo json_encode($result, JSON_PRETTY_PRINT);
     }
 }
