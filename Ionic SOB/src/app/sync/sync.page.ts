@@ -6,24 +6,16 @@ import { HttpClient } from '@angular/common/http';
 import { Integration } from '../publicServices/Integration';
 import { equal } from 'assert';
 
-
 @Component({
   selector: 'app-sync',
   templateUrl: './sync.page.html',
   styleUrls: ['./sync.page.scss'],
 })
 export class SyncPage {
-  Description:string;
-  ConvertJson: any;
-  allData: any;
-  flightData: any;
-  ProductData: any;
-  passangerData: any;
-  User:string;
-  Send: any;
   isLoading = false;
 
-  constructor(
+  constructor
+  (
     public navCtrl: NavController,
     public storage: Storage, 
     public http: HttpClient, 
@@ -32,7 +24,10 @@ export class SyncPage {
     private itGration : Integration
   )
   { }
-
+  /**
+   * Alert to show Log Out Confirmation
+   * AlertController
+   */
   async ConfirmLogOut(){
     let alert = await this.alertCtrl.create({
       message: 'Are You Sure? ',
@@ -51,13 +46,32 @@ export class SyncPage {
     });
     alert.present();
   }
-
-  home() {
-    this.navCtrl.navigateForward('/tabs/home');
+  /**
+   * Alert to show Confirmation Sync to Creatio
+   * AlertController
+   */
+  async SyncConfirmation(){
+    const alert = await this.alertCtrl.create({
+      message: 'Synchronize to Creatio?',
+      buttons:[
+        {
+          text: 'Yes',
+          handler: () =>{
+            this.syn();
+          }
+        },
+        {
+          text: 'Cancel',
+          role: 'cancel'
+        }
+      ]
+    })
+    alert.present();
   }
-  sync() {
-    this.navCtrl.navigateForward('/tabs/sync');
-  }
+  /**
+   * List Function to Navigate to other Page
+   * Begin
+   */
   product2() {
     this.navCtrl.navigateForward('/tabs/product2');
   }
@@ -67,167 +81,98 @@ export class SyncPage {
   service() {
     this.navCtrl.navigateForward('/tabs/service');
   }
+  /**
+   * List Function to Navigate to other Page
+   * End
+   */
+
+  /** -------------------------------------------- */
+
+  /**
+   * Function to Log Out and Remove Storage
+   * Remove 
+   */
   logout(){
-    this.storage.set('Active', 'logout');
+    this.storage.remove("Active");
+    this.storage.remove("ClosedOrder");
+    this.storage.remove("Description");
+    this.storage.remove("FlightData");
+    this.storage.remove("Nama");
+    this.storage.remove("Seat");
+    this.storage.remove("passangerData");
+    this.storage.remove("ProductData");
+    this.storage.remove("DataOrder");
+    this.storage.remove("NamePassenger");
+    this.storage.remove("DataPreOrder");
+    this.storage.remove("CloseOrderNew");
     this.navCtrl.navigateForward('login');
-    /*
-    Remove Storage 
-    */
-   this.storage.remove("Active");
-   this.storage.remove("ClosedOrder");
-   this.storage.remove("Description");
-   this.storage.remove("FlightData");
-   this.storage.remove("Nama");
-   this.storage.remove("Seat");
-   this.storage.remove("passangerData");
-   this.storage.remove("ProductData");
-   this.storage.remove("DataOrder");
-   this.storage.remove("NamePassenger");
-   this.storage.remove("DataPreOrder")
-   this.storage.remove("CloseOrderNew")
   }
+  /**
+   * Function to Handling Sync to Creatio
+   * 
+   */
   syn(){
-     //Sync to Creatio
-     this.storage.get('CloseOrderNew').then(data => {
-       var total;
-       data.forEach(element => {
-          if ( element.Id == element.Id){
-            total += parseInt(element.Total)
-          }
-          console.log(total)
-       });
+    const temp = [];
+    this.storage.get('CloseOrderNew').then(data => {
+      const dataOrder = data;
+
+      dataOrder.forEach(product => {
+      let id = product.Id
+      let total = product.Total
+      let sold = product.Sold;
+      let check = temp.filter(item =>{
+        return item.Id == id;
+      }).length > 0;
+
+      if (check){
+        let index = temp.findIndex(item =>{
+          return item.Id == id;
+        })
+        temp[index].Total += total;
+        temp[index].Sold += sold;
+      }else{
+        temp.push(product);
+      }
+      });
      })
-    //  this.storage.get("ProductData").then(data =>{
-    //    var ProductData = data;
-    //    var SyncData = [];
-    //  if(ProductData){
-    //    for(let data = 0; data<ProductData.length; data++){
-    //      let body = { 
-    //        Id : ProductData[data]['ID'],
-    //        Stock : ProductData[data]['Stock'],
-    //        Sold : ProductData[data]['Sold'],
-    //        Total : ProductData[data]['Total']   
-    //      };
-    //      SyncData.push(body);
-    //    }
-    //  }
-    //  let SyncBody = {
-    //    SalesRecordMovement : '',
-    //    Status : 'Closing',
-    //    ProductList : SyncData
-    //  }
+
+    this.storage.get("ProductData").then(data =>{
+      var ProductData = data;
+      var SyncData = [];
+    temp.forEach(ProductList => {
+      ProductData.forEach(productData =>{
+          if ( productData.ID == ProductList.Id){
+            let body = { 
+              Id : ProductList.Id,
+              Stock : productData.Stock,
+              Sold : ProductList.Sold,
+              Total : ProductList.Total  
+            };
+            SyncData.push(body);
+          }
+      })
+    });
+     let SyncBody = {
+       SalesMovementRecordId : '1',
+       Status : 'Closing',
+       ProductList : SyncData
+     }
     //  console.log(SyncBody)
-    //  this.itGration.postData(SyncBody, 'sync/mobile-to-local').subscribe(data=>{
-    //    console.log(data);
-    //  })
-    //  })
-    // this.present();
-    // this.upload_data();
-    // this.sync_flight();
-  }
-  order(){
-    this.navCtrl.navigateForward('/order');
-  }
-  upload_data(){
-    this.storage.get('Nama').then((val3) => {
-    this.User = val3;
-    this.storage.get('Description').then((val2) => {
-      this.Description=val2;
-      this.storage.get('ClosedOrder').then((val) => {
-        this.Send = val;
-        for(let i = 0; i<this.Send.length; i++){
-          this.http.get('https://bpmonline.asia/duanyam/KangOL/upload.php?Product='+this.Send[i]['Product']+'&Total='+this.Send[i]['Total']+'&Flight='+this.Send[i]['Flight']+'&Seat='+this.Send[i]['Seat']+'&NamaPassanger='+this.Send[i]['NamaPassanger']+'&NoFlight='+this.Send[i]['NoFlight']+'&Qty='+this.Send[i]['Qty']+'&Desc='+this.Description+'&User='+this.User)
-          .subscribe(data => {},
-          err => {});
-        }
-      });
-    });
-  });
-  }
-  sync_flight(){
-    this.storage.get('Nama').then((val) => {
-     
-      this.User = val;
-      
-      if(this.User){
-
-        this.http.get('https://bpmonline.asia/duanyam/KangOL/sync_flight.php?ID='+this.User)
-        .subscribe(data => {
-            this.flightData = data;
-            if(this.flightData.length > 0){
-            console.log(this.flightData);
-            this.storage.set('FlightData', this.flightData);
-            }
-            else{
-              console.log("Oops Flight!");
-              this.presentAlert();
-          }
-        },
-        err => {
-          this.presentAlert();
-          console.log("Oops Flight!");
+     this.itGration.postData(SyncBody, 'sync/mobile-to-local').subscribe(async data=>{
+       if (data.success == true){
+         const alert = await this.alertCtrl.create({
+           message: data.message,
+           buttons: ['OK']
+         });
+         alert.present();
+       }else{
+        const alert = await this.alertCtrl.create({
+          message: data.message,
+          buttons: ['OK']
         });
-
-        this.http.get('https://bpmonline.asia/duanyam/KangOL/sync_product.php?ID='+this.User)
-        .subscribe(data2 => {
-            this.ProductData = data2;
-            if(this.ProductData.length > 0){
-            console.log(this.ProductData);
-            this.storage.set('ProductData', this.ProductData);
-            }
-            else{
-              console.log("Oops Product!");
-              this.presentAlert();
-          }
-        },
-        err => {
-          this.presentAlert();
-          console.log("Oops Product!");
-        });
-
-        this.http.get('https://bpmonline.asia/duanyam/KangOL/sync_passanger.php?ID='+this.User)
-        .subscribe(data3 => {
-            this.passangerData = data3;
-            if(this.passangerData.length > 0){
-            console.log(this.passangerData);
-            this.storage.set('passangerData', this.passangerData);
-            this.storage.set('ClosedOrder', '');
-            this.storage.set('Description', '');
-            }
-            else{
-              console.log("Oops Passanger!");
-              this.presentAlert();
-          }
-        },
-        err => {
-          this.presentAlert();
-          console.log("Oops Passanger!");
-        });
-    }
-  });
-  }
-  async presentAlert() {
-    const alert = await this.alertCtrl.create({
-      message: 'Syncronize Gagal',
-      buttons: ['OK']
-    });
-    await alert.present();
-  }
-  async present() {
-    this.isLoading = true;
-    return await this.loading.create({
-      message : "",
-      spinner: 'crescent',
-      translucent : true,
-      cssClass:'custom-loader-class',
-      mode: 'md',
-      duration: 2000
-    }).then(a => {
-      a.present().then(() => {
-        if (!this.isLoading) {
-          a.dismiss();
-        }
-      });
-    });
+        alert.present();
+       }
+     })
+     })
   }
 }

@@ -42,3 +42,50 @@ CREATE TABLE IF NOT EXISTS Product (
     CONSTRAINT pk_Product_ID PRIMARY KEY(ID),
     CONSTRAINT fk_Product_Flight FOREIGN KEY(Flight) REFERENCES Flight(ID)
 )ENGINE=InnoDb;
+
+-- Table Passenger
+DROP TABLE IF EXISTS Passenger;
+CREATE TABLE IF NOT EXISTS `Passanger` (
+  `ID` varchar(50) NOT NULL UNIQUE,
+  `Flight` varchar(50) DEFAULT NULL, --FK
+  `Nama` varchar(50) NOT NULL,
+  `Category` varchar(30) NOT NULL,
+  `Seat` varchar(30) NOT NULL,
+  `Birth` varchar(10) NOT NULL,
+  `Phone` varchar(20) NOT NULL,
+
+   CONSTRAINT pk_Passenger_ID PRIMARY KEY(ID),
+   CONSTRAINT fk_Passenger_Flight FOREIGN KEY(Flight) REFERENCES Flight(ID)
+
+) ENGINE=InnoDB;
+
+-- Table Sync Order
+DROP TABLE IF EXISTS Sync_Order;
+CREATE TABLE IF NOT EXISTS `Sync_Order` (
+  `ID` INT AUTO_INCREMENT UNSIGNED NOT NULL,
+  `Product` varchar(50) DEFAULT NULL,
+  `Flight` varchar(50) DEFAULT NULL,
+  `Sold` int(10) NOT NULL,
+  `Total` int(10) NOT NULL,
+  `Passanger` varchar(50) DEFAULT NULL,
+
+   CONSTRAINT pk_Sync_Order_ID PRIMARY KEY(ID),
+   CONSTRAINT fk_Sync_Order_Flight FOREIGN KEY(Flight) REFERENCES Flight(ID),
+   CONSTRAINT fk_Sync_Order_Product FOREIGN KEY(Product) REFERENCES Product(ID),
+   CONSTRAINT fk_Sync_Order_Passenger FOREIGN KEY(Passenger) REFERENCES Passenger(ID)
+
+) ENGINE=InnoDB;
+
+--Table Sync User
+DROP TABLE IF EXISTS Sync_User;
+CREATE TABLE IF NOT EXISTS `Sync_User`(
+  `ID` varchar(50) NOT NULL UNIQUE,
+  `Flight` varchar(50) DEFAULT NULL,
+  `Status` varchar(30) NOT NULL,
+  `User` varchar(50) DEFAULT NULL,
+
+   CONSTRAINT pk_Sync_User_ID PRIMARY KEY(ID),
+   CONSTRAINT fk_Sync_User_Flight FOREIGN KEY(Flight) REFERENCES Flight(ID),
+   CONSTRAINT fk_Sync_User_User FOREIGN KEY(User) REFERENCES User(ID)
+
+) ENGINE=InnoDB;

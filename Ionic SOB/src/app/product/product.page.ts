@@ -26,14 +26,15 @@ export class ProductPage implements OnInit {
   Seat : string;
   NamePassenger : string;
   
-  constructor(
+  constructor
+  (
     public navCtrl: NavController,
     public storage: Storage, 
     public alertController: AlertController,
     public http: HttpClient,
     private filterData : ProductFilterService
-    ) {
-    }
+  ) {
+  }
   
   ionViewWillEnter(){
     this.getdata();
@@ -42,11 +43,38 @@ export class ProductPage implements OnInit {
   ngOnInit(){
     this.setFilteredItems();
   }
+  /**
+  * List Function to Navigate to other Page
+  * Begin
+  */
+  sync() {
+    this.navCtrl.navigateForward('/tabs/sync');
+  }
+  payment() {
+    this.navCtrl.navigateForward('/tabs/payment');
+  }
+  waiting() {
+    this.navCtrl.navigateForward('/tabs/waiting');
+  }
+  /**
+  * List Function to Navigate to other Page
+  * End
+  */
+ /** -------------------------------------------- */
 
+  /**
+   * @function# to handling Search Data
+   * Data Product
+   */
   setFilteredItems() {
     this.items = this.filterData.filterProduct(this.searchTerm);
   }
-
+  /**
+  * @function# to get Data 
+  * #Product
+  * #Seat
+  * #Passenger Name
+  */
   getdata(){
     this.storage.get('ProductData').then((val) => {
         this.items = val;
@@ -57,8 +85,12 @@ export class ProductPage implements OnInit {
     this.storage.get('NamePassenger').then(val3 => {
       this.NamePassenger = val3;
     })
-    
   }
+  /**
+   * @function# to handling Set Data 
+   * #Order
+   * #Pre Order 
+   */
   order(){
     this.AddArray2 = [];
     for(let i = 0; i<this.items.length; i++){
@@ -85,7 +117,9 @@ export class ProductPage implements OnInit {
       };
       this.AddArray2.push(this.ArrayInput2);
     }
-    //Data Close Order
+    /**
+     * Data Close Order
+     */
       var DataPreOrder = [];
           let body = {
             NamaPassanger : this.NamePassenger,
@@ -97,27 +131,30 @@ export class ProductPage implements OnInit {
     this.storage.set('DataOrder', this.AddArray2);
     this.navCtrl.navigateForward('/tabs/order');
   }
-
+  /**
+   * @param Product 
+   * @param Price 
+   * @param Seat 
+   */
   public increment (Product, Price, Seat) {
     this.ArrayInput = { Product : Product, Price : Price, Seat : Seat, Qty : 1};
     this.AddArray.push(this.ArrayInput);
   }
-
+  /**
+   * @param Product
+   * @param Price 
+   * @param Seat 
+   */
   public decrement (Product, Price, Seat) {
       this.ArrayInput = { Product : Product, Price : Price, Seat : Seat, Qty : -1};
       this.AddArray.push(this.ArrayInput);
   }
-
-  sync() {
-    this.navCtrl.navigateForward('/tabs/sync');
-  }
-  payment() {
-    this.navCtrl.navigateForward('/tabs/payment');
-  }
-  waiting() {
-    this.navCtrl.navigateForward('/tabs/waiting');
-  }
-
+  /**
+   * @function# to Sum Price and Qty
+   * @param Product 
+   * @param Price 
+   * @param Seat 
+   */
   suma (Product, Price, Seat){
     this.currentNumber = 0;
     for(let i = 0; i<this.AddArray.length; i++){

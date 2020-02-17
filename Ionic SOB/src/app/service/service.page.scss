@@ -1,3 +1,8 @@
+.buttonService{
+	ion-item{
+		--ion-background-color: white;
+	}
+}
 
 .header-kanan{
 	float: left;
@@ -88,5 +93,5 @@
 }
 .input-description{
 	border-bottom: 1px solid #c6d4d9;
-	height:20vw;
+	height: 45vw;
 }

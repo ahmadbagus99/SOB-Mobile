@@ -14,48 +14,65 @@ export class PaymentPage {
   Description:string;
   Address:string;
   isLoading = false;
-  items : any = [];
+  items = [];
   items2 : any = [];
   ArrayInput : any = [];
   current:string;
   mitra:string;
   ConvertJson: any;
   allData: any;
-  constructor(
+  constructor
+  (
     public loading: LoadingController,
     public navCtrl: NavController,
     public storage: Storage,
     public http: HttpClient,
     public alertController: AlertController
-    ) { 
+  ) { 
   }
 
   ionViewWillEnter() {
     this.getData();
   }
-
-  async getData(){
-    const loading = await this.loading.create({
-      message : "",
-      spinner: 'crescent',
-      translucent : true,
-      cssClass:'custom-loader-class',
-      mode: 'md',
-    });
-    loading.present();
-    loading.dismiss().then(()=>{
-      this.storage.get('CloseOrderNew').then( data => {
+/**
+ * GetData Order Passenger
+ * 
+ */
+async getData(){
+  const loading = await this.loading.create({
+    message : "",
+    spinner: 'crescent',
+    translucent : true,
+    cssClass:'custom-loader-class',
+    mode: 'md',
+  });
+  loading.present();
+  loading.dismiss().then(()=>{
+    this.storage.get('CloseOrderNew').then( data => {
+      if ( data != null){
         this.items = data;
-      });
-      this.storage.get('FlightData').then((val2) => {
-        this.items2 = val2;
-      });
-    })
+      }else if( data == null){
+        let body = {
+          Product: 'No Product Selected',
+          Seat: 'No Seat',
+          Sold: '0',
+          Total: '0'
+        }
+        this.items.push(body)
+      }
+    });
+    this.storage.get('FlightData').then((val2) => {
+      this.items2 = val2;
+    });
+  })
   }
+  /**
+  * List Function to Navigate to other Page
+  * Begin
+  */
   home(){
     this.navCtrl.navigateForward('/home');
   }
-
   product(){
     this.navCtrl.navigateForward('/product');
   }
@@ -65,34 +82,5 @@ export class PaymentPage {
   payment() {
     this.navCtrl.navigateForward('/payment');
   }
-  doRefresh(event) {
-    this.getData();
-    console.log('Begin async operation');
-
-    setTimeout(() => {
-      console.log('Async operation has ended');
-      event.target.complete();
-    }, 2000);
-  }
-
-  refresh(){
-    this.getData();
-    console.log('Begin async operation');
-
-    setTimeout(() => {
-      console.log('Async operation has ended');
-    }, 2000);
-  }
- 
-  
-  async presentAlert() {
-    const alert = await this.alertController.create({
-      message: 'Contractor Not Find',
-      buttons: ['OK']
-    });
-
-    await alert.present();
-  }
-  
 }
 
