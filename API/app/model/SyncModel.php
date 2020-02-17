@@ -166,7 +166,11 @@ class SyncModel extends Database {
                 ':id' => $salesRecordMovementId
             ));
             $totalSyncFlight += $statement->rowCount();
-                
+            
+            if($totalSyncFlight < 1) {
+                throw new Exception('Flight not found');
+            }
+
             // update product
             $query = "UPDATE Product SET Stock = :stock, Sold = :sold, Total = :total WHERE ID = :id;";
             foreach($data->ProductList as $product) {
@@ -180,11 +184,20 @@ class SyncModel extends Database {
                 $totalSyncProduct += $statement->rowCount();
             }
 
+            if($totalSyncProduct < 1) {
+                throw new Exception('Product not found');
+            }
+
             $this->connection->commit();
             $success = ($totalSyncFlight > 0 && $totalSyncProduct > 0) ? true : false;
             sleep(0.25);
         } 
         catch (PDOException $e) {
+            $this->connection->rollBack();
+            $error = $e->getMessage();
+            $totalSyncFlight = $totalSyncProduct = 0;
+        }
+        catch(Exception $e){
             $this->connection->rollBack();
             $error = $e->getMessage();
             $totalSyncFlight = $totalSyncProduct = 0;
@@ -440,11 +453,19 @@ class SyncModel extends Database {
             ));
             $total += $statement->rowCount();
 
+            if($total < 1) {
+                throw new Exception('SyncUser not found');
+            }
+
             $this->connection->commit();
             $success = $total > 0 ? true : false;
             sleep(0.25);
         } 
         catch (PDOException $e) {
+            $this->connection->rollBack();
+            $error = $e->getMessage();
+        }
+        catch (Exception $e) {
             $this->connection->rollBack();
             $error = $e->getMessage();
         }
@@ -484,10 +505,18 @@ class SyncModel extends Database {
             ));
             $total += $statement->rowCount();
 
+            if($total < 1) {
+                throw new Exception('Flight not found');
+            }
+
             $this->connection->commit();
             $success = $total > 0 ? true : false;
         } 
         catch (PDOException $e) {
+            $this->connection->rollBack();
+            $error = $e->getMessage();
+        }
+        catch (Exception $e) {
             $this->connection->rollBack();
             $error = $e->getMessage();
         }
@@ -537,11 +566,20 @@ class SyncModel extends Database {
                 $total += $statement->rowCount();
             }
 
+            if($total < 1) {
+                throw new Exception('Product not found');
+            }
+
             $this->connection->commit();
             $success = $total > 0 ? true : false;
             sleep(0.25);
         } 
         catch (PDOException $e) {
+            $this->connection->rollBack();
+            $error = $e->getMessage();
+            $total = 0;
+        }
+        catch (Exception $e) {
             $this->connection->rollBack();
             $error = $e->getMessage();
             $total = 0;
