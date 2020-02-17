@@ -42,6 +42,7 @@
     "cordova-sqlite-storage": "3.2.1",
     "core-js": "^2.5.4",
     "cors": "^2.8.5",
+    "mx.ferreyra.callnumber": "0.0.2",
     "ng-socket-io": "^0.2.4",
     "rxjs": "^6.5.2",
     "rxjs-compat": "^6.5.2",
@@ -86,8 +87,11 @@
         "ANDROID_SUPPORT_ANNOTATIONS_VERSION": "27.+"
       },
       "cordova-plugin-ionic-keyboard": {},
-      "cordova-plugin-advanced-http": {},
-      "mx.ferreyra.callnumber": {}
+      "cordova-plugin-advanced-http": {
+        "OKHTTP_VERSION": "3.10.0"
+      },
+      "mx.ferreyra.callnumber": {},
+      "call-number": {}
     },
     "platforms": [
       "android"
