@@ -58,7 +58,7 @@ export class WaitingPage {
           this.seat = val2;
       });
     });
-    this.storage.get('FlightData').then((val2) => {
+    this.storage.get('DataFlight').then((val2) => {
       this.items2 = val2;
     });
   }
