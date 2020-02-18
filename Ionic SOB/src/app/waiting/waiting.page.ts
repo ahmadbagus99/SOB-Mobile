@@ -49,7 +49,7 @@ export class WaitingPage {
       mode: 'md',
     });
     await loading.present();
-    this.storage.get('passangerData').then((val) => {
+    this.storage.get('DataPassenger').then((val) => {
       loading.dismiss().then(()=>{
         this.isLoading = true;
         this.items = val;

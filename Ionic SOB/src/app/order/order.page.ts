@@ -59,13 +59,13 @@ export class OrderPage {
       this.NamePassenger = data.map(dataFilter => dataFilter.NamaPassanger).toString();
       this.ProductChoose = data.map(dataFilter => dataFilter.Product).toString();
     })
-    this.storage.get('passangerData').then((val) => {
+    this.storage.get('DataPassenger').then((val) => {
       this.items = val;
         this.storage.get('Seat').then((val2) => {
           this.seat = val2;
       });
     });
-    this.storage.get('FlightData').then((val2) => {
+    this.storage.get('DataFlight').then((val2) => {
       this.items2 = val2;
     });
     this.storage.get('DataOrder').then((val) => {
@@ -108,30 +108,30 @@ export class OrderPage {
     mode: 'md',
   });
   loading.present();
-  this.ConvertJson = JSON.stringify(this.items);
-  this.allData = JSON.parse(this.ConvertJson);
+  // this.ConvertJson = JSON.stringify(this.items);
+  // this.allData = JSON.parse(this.ConvertJson);
 
-  this.ConvertJson2 = JSON.stringify(this.items2);
-  this.allData2 = JSON.parse(this.ConvertJson2);
+  // this.ConvertJson2 = JSON.stringify(this.items2);
+  // this.allData2 = JSON.parse(this.ConvertJson2);
 
   this.storage.get('DataOrder').then((val) => {
     this.allData3 = val;
     this.AddArray = [];
-    if(this.allData3){
-      for(let ii = 0; ii<this.allData3.length; ii++){
-        this.ArrayInput = { 
-          Product : this.allData3[ii]['Product'], 
-          Total : this.allData3[ii]['Total'], 
-          Passanger : this.allData[0]['ID'],
-          Flight : this.allData2[0]['ID'],
-          Seat : this.allData3[0]['Seat'],
-          NamaPassanger : this.allData[0]['Nama'],  
-          NoFlight : this.allData2[0]['No'], 
-          Qty : this.allData3[ii]['Qty'],
-        };
-        this.AddArray.push(this.ArrayInput);
-      }
-    }
+    // if(this.allData3){
+    //   for(let ii = 0; ii<this.allData3.length; ii++){
+    //     this.ArrayInput = { 
+    //       Product : this.allData3[ii]['Product'], 
+    //       Total : this.allData3[ii]['Total'], 
+    //       Passanger : this.allData[0]['ID'],
+    //       Flight : this.allData2[0]['ID'],
+    //       Seat : this.allData3[0]['Seat'],
+    //       NamaPassanger : this.allData[0]['Nama'],  
+    //       NoFlight : this.allData2[0]['No'], 
+    //       Qty : this.allData3[ii]['Qty'],
+    //     };
+    //     this.AddArray.push(this.ArrayInput);
+    //   }
+    // }
     /**
      * Set Data Close Order
      */
@@ -193,7 +193,7 @@ export class OrderPage {
     }
     loading.dismiss().then(async ()=>{
       this.isLoading = false;
-      this.storage.set('ProductData', DataProduct);
+      this.storage.set('DataProduct', DataProduct);
       this.storage.set('ClosedOrder', this.AddArray);
       const alert = await this.alertController.create({
         message: 'Success Added!',
