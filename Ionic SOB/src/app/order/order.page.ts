@@ -35,6 +35,7 @@ export class OrderPage {
     public http: HttpClient,
     public alertController: AlertController
   ) { 
+    this.getData();
   }
 
   ionViewWillEnter(){

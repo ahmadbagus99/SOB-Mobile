@@ -94,7 +94,7 @@ export class ProductPage implements OnInit {
       for(let ii = 0; ii<this.AddArray.length; ii++){
         if(this.items[i]['Nama'] == this.AddArray[ii]['Product'] ){
           this.total += this.AddArray[ii]['Qty'];
-          this.grand = this.total * parseInt(this.AddArray[0]['Price']);
+          this.grand = this.total * parseInt(this.AddArray[ii]['Price']);
         } 
       }
       this.ArrayInput2 = { 

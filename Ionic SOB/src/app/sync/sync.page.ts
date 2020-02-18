@@ -59,7 +59,7 @@ export class SyncPage {
         {
           text: 'Yes',
           handler: () => {
-            this.logout();
+            this.syn();
           }
         }
       ]

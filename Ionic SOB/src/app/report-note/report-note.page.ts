@@ -19,7 +19,14 @@ Number : [];
 
   ionViewWillEnter(){
     this.storage.get('Note').then((val) =>{
-      this.Note = val;
+      if ( val != null){
+        this.Note = val;
+      }else if (val == null){
+        let body = {
+          note: 'You dont have Report'
+        }
+        this.Note.push(body);
+      }
     })
   }
 }
