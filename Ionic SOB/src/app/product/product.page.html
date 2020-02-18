@@ -2,7 +2,7 @@
   <ion-toolbar>
     <ion-back-button slot="start" defaultHref="/tabs/waiting"></ion-back-button>
     <ion-title text-center>Select Product</ion-title>
-    <ion-button fill="clear" slot="end" (click)="order()">Next</ion-button>
+    <ion-button fill="clear" slot="end" style="color: #0b8643;" (click)="order()">Next</ion-button>
   </ion-toolbar>
   <ion-searchbar [(ngModel)]="searchTerm" (ionChange)="setFilteredItems()"></ion-searchbar>
 </ion-header>

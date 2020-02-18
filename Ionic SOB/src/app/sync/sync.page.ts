@@ -51,16 +51,16 @@ export class SyncPage {
   async SyncConfirmation(){
     const alert = await this.alertCtrl.create({
       message: 'Synchronize to Creatio?',
-      buttons:[
-        {
-          text: 'Yes',
-          handler: () =>{
-            this.syn();
-          }
-        },
+      buttons: [
         {
           text: 'Cancel',
-          role: 'cancel'
+          role: 'cancel',
+        },
+        {
+          text: 'Yes',
+          handler: () => {
+            this.logout();
+          }
         }
       ]
     })
