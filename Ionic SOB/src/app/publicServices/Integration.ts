@@ -4,8 +4,8 @@ import 'rxjs/add/operator/map';
 
 @Injectable()
 export class Integration{
-    // server: string = "https://citilink-sales.bpmonline.asia/apiv2/";
-    server: string = "http://localhost:8000/";
+    server: string = "https://citilink-sales.bpmonline.asia/api/";
+    // server: string = "http://localhost:8000/";
     constructor
     (
         public http: Http
