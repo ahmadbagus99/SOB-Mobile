@@ -53,12 +53,6 @@ Note = [];
     this.navCtrl.navigateForward('/tabs/payment');
   }
   /**
-  * List Function to Navigate to other Page
-  * End
-  */
-  /** -------------------------------------------- */
-
-  /**
    * @function# to Add Description
    */
   async save(){

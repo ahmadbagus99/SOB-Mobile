@@ -91,11 +91,6 @@ export class OrderPage {
     this.navCtrl.navigateForward('/tabs/product');
   }
   /**
-  * List Function to Navigate to other Page
-  * End
-  */
-  /** -------------------------------------------- */
-  /**
    * @function# to handling Order product 
    * Button Confirmation
    */
@@ -108,30 +103,10 @@ export class OrderPage {
     mode: 'md',
   });
   loading.present();
-  // this.ConvertJson = JSON.stringify(this.items);
-  // this.allData = JSON.parse(this.ConvertJson);
-
-  // this.ConvertJson2 = JSON.stringify(this.items2);
-  // this.allData2 = JSON.parse(this.ConvertJson2);
 
   this.storage.get('DataOrder').then((val) => {
     this.allData3 = val;
     this.AddArray = [];
-    // if(this.allData3){
-    //   for(let ii = 0; ii<this.allData3.length; ii++){
-    //     this.ArrayInput = { 
-    //       Product : this.allData3[ii]['Product'], 
-    //       Total : this.allData3[ii]['Total'], 
-    //       Passanger : this.allData[0]['ID'],
-    //       Flight : this.allData2[0]['ID'],
-    //       Seat : this.allData3[0]['Seat'],
-    //       NamaPassanger : this.allData[0]['Nama'],  
-    //       NoFlight : this.allData2[0]['No'], 
-    //       Qty : this.allData3[ii]['Qty'],
-    //     };
-    //     this.AddArray.push(this.ArrayInput);
-    //   }
-    // }
     /**
      * Set Data Close Order
      */

@@ -57,12 +57,6 @@ export class ProductPage implements OnInit {
     this.navCtrl.navigateForward('/tabs/waiting');
   }
   /**
-  * List Function to Navigate to other Page
-  * End
-  */
- /** -------------------------------------------- */
-
-  /**
    * @function# to handling Search Data
    * Data Product
    */
