@@ -70,7 +70,7 @@ export class ProductPage implements OnInit {
   * #Passenger Name
   */
   getdata(){
-    this.storage.get('DataProduct').then((val) => {
+    this.storage.get('ProductData').then((val) => {
         this.items = val;
     });
     this.storage.get('Seat').then((val2) => {

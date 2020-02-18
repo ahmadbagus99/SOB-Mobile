@@ -53,7 +53,7 @@ export class Product2Page implements OnInit {
     this.navCtrl.navigateForward('/sync');
   }
   getdata(){
-    this.storage.get('DataProduct').then((val) => {
+    this.storage.get('ProductData').then((val) => {
         this.items = val;
     });
   }

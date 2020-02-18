@@ -21,7 +21,7 @@ export class AuthenticationService {
   }
   
   checkToken(){
-    this.storage.get('Id').then(res =>{
+    this.storage.get("Nama").then(res =>{
       if (res){
         this.authenticationState.next(true);
       }

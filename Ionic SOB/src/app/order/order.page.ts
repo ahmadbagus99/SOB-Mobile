@@ -60,13 +60,13 @@ export class OrderPage {
       this.NamePassenger = data.map(dataFilter => dataFilter.NamaPassanger).toString();
       this.ProductChoose = data.map(dataFilter => dataFilter.Product).toString();
     })
-    this.storage.get('DataPassenger').then((val) => {
+    this.storage.get('passangerData').then((val) => {
       this.items = val;
         this.storage.get('Seat').then((val2) => {
           this.seat = val2;
       });
     });
-    this.storage.get('DataFlight').then((val2) => {
+    this.storage.get('FlightData').then((val2) => {
       this.items2 = val2;
     });
     this.storage.get('DataOrder').then((val) => {
@@ -169,7 +169,7 @@ export class OrderPage {
     }
     loading.dismiss().then(async ()=>{
       this.isLoading = false;
-      this.storage.set('DataProduct', DataProduct);
+      this.storage.set('ProductData', DataProduct);
       this.storage.set('ClosedOrder', this.AddArray);
       const alert = await this.alertController.create({
         message: 'Success Added!',

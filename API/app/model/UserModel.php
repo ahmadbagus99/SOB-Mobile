@@ -69,8 +69,7 @@ class UserModel extends Database {
 
         try {
             $q = $this->syncUser->select(['ID', 'Flight', 'Status', 'User'])
-                    ->where('User', $username) 
-                    ->where('Status', 'Active'); 
+                    ->where('User', $username);
 
             $result = $q->get();
             $success = true;
