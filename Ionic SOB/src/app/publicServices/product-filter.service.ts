@@ -14,7 +14,7 @@ public ProductData = [];
   }
   
   LoadDataProduct(){
-    this.storage.get("DataProduct").then((data) =>{
+    this.storage.get("ProductData").then((data) =>{
       this.ProductData = data;
     });
   }

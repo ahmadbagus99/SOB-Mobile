@@ -12,7 +12,7 @@ class SyncMobile extends Controller
         header("Access-Control-Allow-Origin: *");
         header("Content-Type: application/json");
         header("Accept: application/json");
-        header("Access-Control-Allow-Methods: OPTIONS, GET, POST, PUT");
+        header("Access-Control-Allow-Methods: OPTIONS, GET");
         header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
         $this->model("SyncModel", "Sync");
