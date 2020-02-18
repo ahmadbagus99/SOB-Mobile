@@ -79,7 +79,7 @@ export class SyncPage {
     this.navCtrl.navigateForward('/tabs/payment');
   }
   service() {
-    this.navCtrl.navigateForward('/tabs/service');
+    this.navCtrl.navigateForward('/tabs/report-note');
   }
   /**
    * List Function to Navigate to other Page
@@ -157,7 +157,7 @@ export class SyncPage {
        Status : 'Closing',
        ProductList : SyncData
      }
-    //  console.log(SyncBody)
+     console.log(SyncBody)
      this.itGration.postData(SyncBody, 'sync/mobile-to-local').subscribe(async data=>{
        if (data.success == true){
          const alert = await this.alertCtrl.create({
