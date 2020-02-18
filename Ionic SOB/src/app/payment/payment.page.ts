@@ -54,6 +54,7 @@ async getData(){
       if ( data != null){
         this.items = data;
       }else if( data == null){
+        this.items = [];
         let body = {
           Product: 'No Product Selected',
           Seat: 'No Seat',
