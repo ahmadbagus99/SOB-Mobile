@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController,LoadingController,AlertController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
-import { HTTP } from '@ionic-native/http/ngx';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
@@ -52,13 +51,6 @@ items : any = [];
     autoplay: true,
     speed:1000
   };
-  /**
-  * List Function to Navigate to other Page
-  * End
-  */
-
-  /** -------------------------------------------- */
-  
   /**
   * Function to handling get data for initialize at begining Page
   * Get Flight Data

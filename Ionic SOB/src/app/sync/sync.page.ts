@@ -82,13 +82,6 @@ export class SyncPage {
     this.navCtrl.navigateForward('/tabs/report-note');
   }
   /**
-   * List Function to Navigate to other Page
-   * End
-   */
-
-  /** -------------------------------------------- */
-
-  /**
    * Function to Log Out and Remove Storage
    * Remove 
    */

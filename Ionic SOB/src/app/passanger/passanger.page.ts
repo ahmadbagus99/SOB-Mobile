@@ -41,9 +41,4 @@ export class PassangerPage implements OnInit {
   passanger() {
     this.navCtrl.navigateForward('/tabs/passanger');
   }
-  // function navigateForward() {
-  //   nav.push('main');
-  // }
-
-
 }
