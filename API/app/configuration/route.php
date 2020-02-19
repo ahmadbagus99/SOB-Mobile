@@ -30,17 +30,17 @@ $route = new \Klein\Klein();
     // sync mobile to local (api yang diconsume mobile)
         
         // sync flight (sales record movement) and product
-        $route->respond('PUT', '/sync/mobile-to-local/sync/[:salesRecordMovementId]', function($request) use ($controller) {
+        $route->respond('POST', '/sync/mobile-to-local/sync/[:salesRecordMovementId]', function($request) use ($controller) {
             $controller->call('SyncLocal/updateSync', array($request->salesRecordMovementId), true);
         });
 
         // sync flight (sales record movement) only
-        $route->respond('PUT', '/sync/mobile-to-local/flight/[:salesRecordMovementId]', function($request) use ($controller) {
+        $route->respond('POST', '/sync/mobile-to-local/flight/[:salesRecordMovementId]', function($request) use ($controller) {
             $controller->call('SyncLocal/updateFlight', array($request->salesRecordMovementId), true);
         });
 
         // sync product only
-        $route->respond('PUT', '/sync/mobile-to-local/product', function() use ($controller) {
+        $route->respond('POST', '/sync/mobile-to-local/product', function() use ($controller) {
             $controller->call('SyncLocal/updateProduct', array(), true);
         });
 
@@ -95,6 +95,11 @@ $route = new \Klein\Klein();
         // sync update sync-user active
         $route->respond('PUT', '/sync/creatio-to-mobile/active-user/[:salesRecordMovementId]', function($request) use ($controller) {
             $controller->call('SyncLocal/updateSyncUser', array($request->salesRecordMovementId), true);
+        });
+
+        // sync update product
+        $route->respond('PUT', '/sync/creatio-to-mobile/update-product', function($request) use ($controller) {
+            $controller->call('SyncLocal/updateSyncProduct', array($request->salesRecordMovementId), true);
         });
 
     // end sync creatio to local

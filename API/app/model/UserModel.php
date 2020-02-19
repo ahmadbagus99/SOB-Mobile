@@ -69,7 +69,8 @@ class UserModel extends Database {
 
         try {
             $q = $this->syncUser->select(['ID', 'Flight', 'Status', 'User'])
-                    ->where('User', $username);
+                    ->where('User', $username)
+                    ->where('Status', 'Active');
 
             $result = $q->get();
             $success = true;
@@ -81,6 +82,31 @@ class UserModel extends Database {
         return (object)array(
             'success' => $success,
             'data' => $result,
+            'error' => $error
+        );
+    }
+
+    /**
+     * 
+     */
+    public function updateSyncUser($salesRecordMovement) {
+        $success = false;
+        $error = null;
+        $result = null;
+
+        try {
+            $q = $this->syncUser->update(['Status' => 'Closing'])
+                    ->where('Flight', $salesRecordMovement)
+                    ->execute();
+
+            $success = true;
+        } 
+        catch (PDOException $e) {
+            $error = $e->getMessage();
+        }
+        
+        return (object)array(
+            'success' => $success,
             'error' => $error
         );
     }
