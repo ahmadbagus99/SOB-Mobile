@@ -21,6 +21,8 @@ export class PaymentPage {
   mitra:string;
   ConvertJson: any;
   allData: any;
+  Total : number;
+
   constructor
   (
     public loading: LoadingController,
@@ -52,6 +54,7 @@ async getData(){
       if ( data != null){
         this.items = data;
       }else if( data == null){
+        this.items = [];
         let body = {
           Product: 'No Product Selected',
           Seat: 'No Seat',
@@ -60,6 +63,10 @@ async getData(){
         }
         this.items.push(body)
       }
+      this.Total = 0;
+      data.forEach(element => {
+        this.Total += element.Total
+      });
     });
     this.storage.get('FlightData').then((val2) => {
       this.items2 = val2;
@@ -81,6 +88,12 @@ async getData(){
   }
   payment() {
     this.navCtrl.navigateForward('/payment');
+  }
+  doRefresh(event) {
+    this.getData();
+    setTimeout(() => {
+      event.target.complete();
+    }, 2000);
   }
 }
 

@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController,LoadingController, AlertController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
-import { HTTP } from '@ionic-native/http/ngx';
 import { HttpClient } from '@angular/common/http';
 import { Integration } from '../publicServices/Integration';
-import { equal } from 'assert';
 
 @Component({
   selector: 'app-sync',
@@ -21,7 +19,7 @@ export class SyncPage {
     public http: HttpClient, 
     public alertCtrl: AlertController,
     public loading: LoadingController,
-    private itGration : Integration
+    private integration : Integration
   )
   { }
   /**
@@ -61,7 +59,7 @@ export class SyncPage {
         {
           text: 'Yes',
           handler: () => {
-            this.logout();
+            this.syn();
           }
         }
       ]
@@ -86,18 +84,17 @@ export class SyncPage {
    * Remove 
    */
   logout(){
-    this.storage.remove("Active");
-    this.storage.remove("ClosedOrder");
-    this.storage.remove("Description");
-    this.storage.remove("FlightData");
-    this.storage.remove("Nama");
-    this.storage.remove("Seat");
-    this.storage.remove("passangerData");
-    this.storage.remove("ProductData");
-    this.storage.remove("DataOrder");
-    this.storage.remove("NamePassenger");
-    this.storage.remove("DataPreOrder");
     this.storage.remove("CloseOrderNew");
+    this.storage.remove("ClosedOrder");
+    this.storage.remove("DataFlight");
+    this.storage.remove("DataLogin");
+    this.storage.remove("DataOrder");
+    this.storage.remove("DataPassenger");
+    this.storage.remove("DataPreOrder");
+    this.storage.remove("DataProduct");
+    this.storage.remove("Id");
+    this.storage.remove("NamePassenger");
+    this.storage.remove("Seat");
     this.navCtrl.navigateForward('login');
   }
   /**
@@ -107,6 +104,7 @@ export class SyncPage {
   syn(){
     const temp = [];
     this.storage.get('CloseOrderNew').then(data => {
+
       const dataOrder = data;
 
       dataOrder.forEach(product => {
@@ -128,8 +126,8 @@ export class SyncPage {
       }
       });
      })
-
-    this.storage.get("ProductData").then(data =>{
+    
+    this.storage.get("DataProduct").then(data =>{
       var ProductData = data;
       var SyncData = [];
     temp.forEach(ProductList => {
@@ -146,26 +144,29 @@ export class SyncPage {
       })
     });
      let SyncBody = {
-       SalesMovementRecordId : '1',
        Status : 'Closing',
        ProductList : SyncData
      }
      console.log(SyncBody)
-     this.itGration.postData(SyncBody, 'sync/mobile-to-local').subscribe(async data=>{
-       if (data.success == true){
+    this.storage.get('DataLogin').then(DataLogin =>{
+      console.log(DataLogin.SalesRecordMovementId)
+      this.integration.postRequest(SyncBody, `sync/mobile-to-local/sync/${DataLogin.SalesRecordMovementId}`).subscribe(async data=>{
+        console.log(data)
+        if (data.success == true){
+          const alert = await this.alertCtrl.create({
+            message: data.message,
+            buttons: ['OK']
+          });
+          alert.present();
+        }else{
          const alert = await this.alertCtrl.create({
            message: data.message,
            buttons: ['OK']
          });
          alert.present();
-       }else{
-        const alert = await this.alertCtrl.create({
-          message: data.message,
-          buttons: ['OK']
-        });
-        alert.present();
-       }
-     })
+        }
+      })
+    })
      })
   }
 }

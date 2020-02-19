@@ -11,6 +11,8 @@ import { HttpClient } from '@angular/common/http';
 export class MainPage {
   
 items : any = [];
+UserID : number;
+
   constructor
   (
     public navCtrl: NavController,
@@ -21,7 +23,7 @@ items : any = [];
     ) {
    }
   
-  ionViewDidEnter(){
+  ionViewWillEnter(){
     this.getdata();
   }
   /**
@@ -57,15 +59,18 @@ items : any = [];
   *  
   */
   getdata(){
-    this.storage.get('FlightData').then((val) => {
-        this.items = val;
+    this.storage.get('DataFlight').then( dataFlight => {
+        this.items = dataFlight;
     });
+    this.storage.get('Id').then(GetIdUser =>{
+      this.UserID = GetIdUser;
+    })
   }
   /**
    * @param toRefreshevent 
    */
   doRefresh(event) {
-    this.getdata();
+    this.ionViewWillEnter();
     setTimeout(() => {
       event.target.complete();
     }, 2000);

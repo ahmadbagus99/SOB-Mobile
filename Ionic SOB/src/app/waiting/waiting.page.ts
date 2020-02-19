@@ -49,7 +49,7 @@ export class WaitingPage {
       mode: 'md',
     });
     await loading.present();
-    this.storage.get('passangerData').then((val) => {
+    this.storage.get('DataPassenger').then((val) => {
       loading.dismiss().then(()=>{
         this.isLoading = true;
         this.items = val;
@@ -58,7 +58,7 @@ export class WaitingPage {
           this.seat = val2;
       });
     });
-    this.storage.get('FlightData').then((val2) => {
+    this.storage.get('DataFlight').then((val2) => {
       this.items2 = val2;
     });
   }
