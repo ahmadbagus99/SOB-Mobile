@@ -7,11 +7,11 @@ class Login extends Controller
 
     public function __construct() {
         header("Access-Control-Allow-Origin: *");
-        header("Content-Type: application/json; charset=UTF-8");
+        header("Content-Type: application/json");
         header("Accept: application/json");
         header("Access-Control-Allow-Methods: OPTIONS, POST");
         header("Access-Control-Max-Age: 3600");
-        header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+        header("Access-Control-Allow-Headers: Content-Type, Accept, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
         $this->model('UserModel', 'User');
     }
