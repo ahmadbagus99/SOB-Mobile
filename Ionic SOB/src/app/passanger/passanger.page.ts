@@ -4,6 +4,7 @@ import { Storage } from '@ionic/storage';
 import { HTTP } from '@ionic-native/http/ngx';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { equal } from 'assert';
 
 
 @Component({
@@ -11,7 +12,10 @@ import { Observable } from 'rxjs';
   templateUrl: './passanger.page.html',
   styleUrls: ['./passanger.page.scss'],
 })
-export class PassangerPage implements OnInit {
+export class PassangerPage {
+
+  Passenger = [];
+ 
 
   constructor(
     public navCtrl: NavController,
@@ -20,8 +24,14 @@ export class PassangerPage implements OnInit {
     public http: HttpClient
   ) { }
 
-  ngOnInit() {
+  ionViewWillEnter(){
+    this.storage.get('DataPassenger').then( dataPassenger => {
+      this.Passenger = dataPassenger.map( data => data.Seat);
+      // console.log(this.Passenger)
+      let newArr = this.Passenger.sort();
+    })
   }
+
   home(){
     this.navCtrl.navigateForward('/home');
   }

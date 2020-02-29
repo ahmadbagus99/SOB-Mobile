@@ -39,6 +39,14 @@ export class OrderPage {
   }
 
   ionViewWillEnter(){
+    this.currentNumber = 0;
+    this.storage.get('DataOrder').then((dataOrder)=>{
+      dataOrder.forEach(data => {
+          if (data.Total > 0){
+            this.currentNumber += parseInt(data.Total);
+          }
+      });
+    })
     this.getData();
   }
   /**
@@ -74,10 +82,6 @@ export class OrderPage {
         this.isLoading = false;
         this.items3 = val;
       })
-      this.currentNumber = 0;
-      for(let i = 0; i<this.items3.length; i++){
-        this.currentNumber = this.currentNumber + this.items3[i]['Total'];
-      }
     });
   }
   /**

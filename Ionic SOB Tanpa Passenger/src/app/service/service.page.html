@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-back-button slot="start" defaultHref="/tabs/main"></ion-back-button>
+    <ion-title text-center>Notes</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="secondary">
+    <div class="box" style="margin-top:5px;height:50%;">
+      <ion-item >
+        <ion-textarea placeholder="Please describe your Incident..." class="input-description" [(ngModel)]="Description"></ion-textarea>
+      </ion-item>
+    </div>
+    <ion-item style="margin-top:20px;" class="buttonService">
+        <button class="button-light" (click)="save()" style="background-color:#0b8643;">Save</button>
+    </ion-item>
+</ion-content>

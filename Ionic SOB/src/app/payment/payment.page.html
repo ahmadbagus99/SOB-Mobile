@@ -39,17 +39,20 @@
   
   <div class="box" style="margin-top:10px;color: #767676;">
     <ion-row>
-      <ion-col text-center style="border:1px solid #9aa3aa;color:#ffffff;background-color: #3daf2c;" size='5'>Product</ion-col>
+      <ion-col text-center style="border:1px solid #9aa3aa;color:#ffffff;background-color: #3daf2c;" size='5'>Nama Passanger</ion-col>
       <ion-col text-center style="border:1px solid #9aa3aa;color:#ffffff;background-color: #3daf2c;" size='2'>Seat</ion-col>
-      <ion-col text-center style="border:1px solid #9aa3aa;color:#ffffff;background-color: #3daf2c;" size='2'>Sold</ion-col>
-      <ion-col text-center style="border:1px solid #9aa3aa;color:#ffffff;background-color: #3daf2c;" size='3'>Total</ion-col>
+      <ion-col text-center style="border:1px solid #9aa3aa;color:#ffffff;background-color: #3daf2c;" size='5'>Total Price</ion-col>
     </ion-row>
 
-    <ion-row *ngFor="let allDatas of items">
-      <ion-col text-center style="border:1px solid #9aa3aa;" size='5'>{{allDatas.Product}}</ion-col>
+    <ion-row *ngFor="let allDatas of temp">
+      <ion-col text-center style="border:1px solid #9aa3aa;" size='5'>
+      <ion-item button
+      (click)="DetailOrder(allDatas.NamaPassanger, allDatas.Seat)">
+        {{allDatas.NamaPassanger}}
+      </ion-item>
+      </ion-col>
       <ion-col text-center style="border:1px solid #9aa3aa;" size='2'>{{allDatas.Seat}}</ion-col>
-      <ion-col text-center style="border:1px solid #9aa3aa;" size='2'>{{allDatas.Sold}}</ion-col>
-      <ion-col text-center style="border:1px solid #9aa3aa;" size='3'>{{allDatas.Total | number}}</ion-col>
+      <ion-col text-center style="border:1px solid #9aa3aa;" size='5'>{{allDatas.Total | currency:'Rp '}}</ion-col>
     </ion-row>
   </div>
   

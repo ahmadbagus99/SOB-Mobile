@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavController,LoadingController,AlertController  } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-payment',
@@ -22,6 +23,8 @@ export class PaymentPage {
   ConvertJson: any;
   allData: any;
   Total : number;
+  TotalPerPassenger : number;
+  temp = [];
 
   constructor
   (
@@ -29,6 +32,7 @@ export class PaymentPage {
     public navCtrl: NavController,
     public storage: Storage,
     public http: HttpClient,
+    public router: Router,
     public alertController: AlertController
   ) { 
   }
@@ -64,8 +68,27 @@ async getData(){
         this.items.push(body)
       }
       this.Total = 0;
-      data.forEach(element => {
-        this.Total += element.Total
+      data.forEach(dataOrder => {
+        this.Total += dataOrder.Total
+      });
+
+      this.temp = [];
+      data.forEach(dataOrder => {
+          let name = dataOrder.NamaPassanger;
+          let total = dataOrder.Total
+          
+          let check = this.temp.filter(item =>{
+            return item.NamaPassanger == name;
+          }).length > 0;
+
+          if (check){
+            let index = this.temp.findIndex(item =>{
+              return item.NamaPassanger == name;
+            })
+            this.temp[index].Total += total;
+          }else{
+            this.temp.push(dataOrder);
+          }
       });
     });
     this.storage.get('FlightData').then((val2) => {
@@ -77,6 +100,9 @@ async getData(){
   * List Function to Navigate to other Page
   * Begin
   */
+  DetailOrder(NamaPassanger, Seat){
+    this.router.navigate(['tabs/detail-order/'+ Seat + '/' + NamaPassanger])
+  }
   home(){
     this.navCtrl.navigateForward('/home');
   }

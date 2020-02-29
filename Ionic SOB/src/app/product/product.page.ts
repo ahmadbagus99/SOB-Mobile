@@ -72,6 +72,7 @@ export class ProductPage implements OnInit {
   getdata(){
     this.storage.get('DataProduct').then((val) => {
         this.items = val;
+        this.product = val;
     });
     this.storage.get('Seat').then((val2) => {
       this.Seat = val2;
@@ -87,24 +88,24 @@ export class ProductPage implements OnInit {
    */
   order(){
     this.AddArray2 = [];
-    for(let i = 0; i<this.items.length; i++){
+    for(let i = 0; i<this.product.length; i++){
       this.total = 0;
       this.grand = 0;
       
       for(let ii = 0; ii<this.AddArray.length; ii++){
-        if(this.items[i]['Nama'] == this.AddArray[ii]['Product'] ){
+        if(this.product[i]['Nama'] == this.AddArray[ii]['Product'] ){
           this.total += this.AddArray[ii]['Qty'];
           this.grand = this.total * parseInt(this.AddArray[ii]['Price']);
         } 
       }
       this.ArrayInput2 = { 
-        Id : this.items[i]['ID'],
-        Product : this.items[i]['Nama'], 
-        Price : this.items[i]["Price"],
-        User : this.items[i]["User"],
-        Passenger : this.items[i]["Passenger"],
-        Flight : this.items[i]['Flight'], 
-        Stock : this.items[i]['Stock'],
+        Id : this.product[i]['ID'],
+        Product : this.product[i]['Nama'], 
+        Price : this.product[i]["Price"],
+        User : this.product[i]["User"],
+        Passenger : this.product[i]["Passenger"],
+        Flight : this.product[i]['Flight'], 
+        Stock : this.product[i]['Stock'],
         Seat : this.Seat,
         Qty : this.total,
         Total : this.grand

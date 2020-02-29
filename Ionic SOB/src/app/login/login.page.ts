@@ -57,6 +57,7 @@ export class LoginPage {
          * with @param ID
          */
         this.integration.getRequest('sync/local-to-mobile/sync/', Login.data.SalesRecordMovementId).subscribe( SyncData =>{
+          console.log(SyncData)
           /**
           * Set Data Flight
           */

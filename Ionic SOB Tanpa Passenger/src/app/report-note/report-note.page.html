@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title text-center>Note Report</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="box" style="margin-top:10px;color: #767676;">
+    <ion-row>
+      <ion-col text-center style="border:1px solid #9aa3aa;color:#ffffff;background-color: #3daf2c;" size='12'>Note</ion-col>
+    </ion-row>
+
+    <ion-row *ngFor="let notes of Note">
+      <ion-col text-center style="border:1px solid #9aa3aa;" size='12'>{{notes.note}}</ion-col>
+    </ion-row>
+  </div>
+</ion-content>

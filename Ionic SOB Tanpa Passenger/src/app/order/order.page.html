@@ -1,0 +1,92 @@
+<ion-content color="secondary">
+
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content style="color: brown;"
+      pullingIcon="arrow-dropdown"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+
+<div class="box">
+  <div class="user">
+    <div class="logo-center">
+      <img src="../assets/img/logo/logo.jpg" >
+    </div>
+  </div>
+</div>
+
+<div class="box-2" (ionRefresh)="getData()" *ngFor="let item of items">
+  <div style="font-size:3.5vw;color:#767676;" *ngIf="item.Seat == seat">
+    <ion-row class="isi-box">
+      <ion-col size="3" >
+          <img src="../assets/img/Promo/no_image_user.png" style="border-radius:100px;width:90%;">
+      </ion-col>
+      <ion-col style="width:60%;">
+          <ion-row>
+            <ion-col>
+              {{item.Nama}}
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+                Customer : {{item.Category}}
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+                Birth Date : {{item.Birth}}
+            </ion-col>
+          </ion-row>
+      </ion-col>
+    </ion-row>
+    <ion-row style="border-top:1px solid #f1f1f1;padding-left:20px;">
+      <ion-col style="font-size:4vw;border-right:1px solid #f1f1f1;padding-top:10px;color:#fb1832" size="7">
+        Seat : {{seat}}
+      </ion-col>
+      <ion-col style="font-size:4vw;padding-top:10px;color:#f2af58;" >
+        {{item.Phone}}
+      </ion-col>
+    </ion-row>
+  </div>
+</div>
+
+<div class="box" style="margin-top:10px;color: #767676;min-height:35%;">
+  <ion-row>
+    <ion-col size="2">
+        <img src="../assets/img/icon/home.png">
+    </ion-col>
+    <ion-col>
+      <ion-row>
+        <ion-col style="font-size:4vw;">
+            Confirmation Order
+        </ion-col>
+      </ion-row>
+
+      <ion-row *ngFor="let item3 of items3">
+        <ion-col style="font-size:4vw;" *ngIf="item3.Qty > 0">
+            <ion-icon name="ios-create" style="font-size:4vw;color:#767676;"></ion-icon> {{item3.Product}} {{item3.Qty}}x @Rp.{{item3.Total | number}}
+        </ion-col>
+        </ion-row>
+        
+    <ion-row>
+      <ion-col style="font-size:4vw;">
+        <ion-icon name="ios-create" style="font-size:4vw;color:#767676;"></ion-icon>Total @{{currentNumber | number}}
+    </ion-col>
+      </ion-row>
+     
+    </ion-col>
+  </ion-row>
+
+</div>
+
+<div class="box-2" style="padding:10px;">
+  <ion-item >
+    <button class="button-light" (click)="closed()" style="background-color:#0b8643;">Confirmation</button>
+  </ion-item>
+  <ion-item>
+    <button class="button-light" (click)="cancel()" style="background-color:#fb0000;">Cancel</button>
+  </ion-item>
+</div>
+</ion-content>
