@@ -3,16 +3,9 @@ Defined('BASE_PATH') or die(ACCESS_DENIED);
 
 class Login extends Controller
 {
-    private $data = null;
-
     public function __construct() {
-        header("Access-Control-Allow-Origin: *");
         header("Content-Type: application/json");
-        header("Accept: application/json");
-        header("Access-Control-Allow-Methods: OPTIONS, POST");
-        header("Access-Control-Max-Age: 3600");
-        header("Access-Control-Allow-Headers: Content-Type, Accept, Access-Control-Allow-Headers, Authorization, X-Requested-With");
-
+        
         $this->model('UserModel', 'User');
     }
 
@@ -32,10 +25,10 @@ class Login extends Controller
         );
 
         // get request body
-        $this->data = json_decode(file_get_contents("php://input"));
-        $isDataValid = isset($this->data) && !empty($this->data);
-        $isUsernameValid = $isDataValid && isset($this->data->username) && !empty($this->data->username);
-        $isPasswordValid = $isDataValid && isset($this->data->password) && !empty($this->data->password);
+        $data = json_decode(file_get_contents("php://input"));
+        $isDataValid = isset($data) && !empty($data);
+        $isUsernameValid = $isDataValid && isset($data->username) && !empty($data->username);
+        $isPasswordValid = $isDataValid && isset($data->password) && !empty($data->password);
 
         // check username dan password tidak boleh kosong
         if(!$isUsernameValid || !$isPasswordValid) {
@@ -43,12 +36,12 @@ class Login extends Controller
         }
 
         // check username dan password di database
-        $getUser = $this->User->getUser($this->data->username);
-        $getSyncUser = $this->User->getSyncUser($this->data->username);
+        $getUser = $this->User->getUser($data->username);
+        $getSyncUser = $this->User->getSyncUser($data->username);
         $getUserValid = $getUser->success && count($getUser->data) > 0;
         $getSyncUserValid = $getSyncUser->success && count($getSyncUser->data) > 0;
-        $checkPassword = $getUserValid ? ($this->data->password === $getUser->data[0]["Password"] ? true : false) : false;
-        // $checkPassword = $getUserValid ? password_verify($this->data->password, $getUser->data[0]['Password']) : false;
+        $checkPassword = $getUserValid ? ($data->password === $getUser->data[0]["Password"] ? true : false) : false;
+        // $checkPassword = $getUserValid ? password_verify($data->password, $getUser->data[0]['Password']) : false;
 
         if(!$checkPassword) {
             $this->requestError(200, "Your Username and Password is wrong");

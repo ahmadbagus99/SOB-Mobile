@@ -166,10 +166,6 @@ class SyncModel extends Database {
                 ':id' => $salesRecordMovementId
             ));
             $totalSyncFlight += $statement->rowCount();
-            
-            if($totalSyncFlight < 1) {
-                throw new Exception('Flight not found');
-            }
 
             // update product
             $query = "UPDATE Product SET Stock = :stock, Sold = :sold, Total = :total WHERE ID = :id;";
@@ -184,12 +180,8 @@ class SyncModel extends Database {
                 $totalSyncProduct += $statement->rowCount();
             }
 
-            if($totalSyncProduct < 1) {
-                throw new Exception('Product not found');
-            }
-
             $this->connection->commit();
-            $success = ($totalSyncFlight > 0 && $totalSyncProduct > 0) ? true : false;
+            $success = ($totalSyncFlight > 0) ? true : false;
             sleep(0.25);
         } 
         catch (PDOException $e) {
@@ -393,11 +385,10 @@ class SyncModel extends Database {
         $error = null;
         $total = 0;
          
-        try {
-            $this->connection->beginTransaction();
-            
-            $query = "INSERT INTO Sync_User (ID, Flight, Status, User) VALUES (:ID, :Flight, :Status, :User);";
-            foreach($data as $item) {
+        
+        $query = "INSERT INTO Sync_User (ID, Flight, Status, User) VALUES (:ID, :Flight, :Status, :User);";
+        foreach($data as $item) {
+            try {
                 $statement = $this->connection->prepare($query);
                 $statement->execute(array(
                     ':ID' => $item->ID,
@@ -407,17 +398,15 @@ class SyncModel extends Database {
                 ));
                 $total += $statement->rowCount();
             }
-
-            $this->connection->commit();
-            $success = $total > 0 ? true : false;
-            sleep(0.25);
-        } 
-        catch (PDOException $e) {
-            $this->connection->rollBack();
-            $error = $e->getMessage();
-            $total = 0;
+            catch (PDOException $e) {
+                continue;
+            }
         }
 
+        $this->connection->commit();
+        $success = $total > 0 ? true : false;
+        sleep(0.25);
+             
         return (object)array(
             'success' => $success,
             'error' => $error,
@@ -572,6 +561,51 @@ class SyncModel extends Database {
 
             $this->connection->commit();
             $success = $total > 0 ? true : false;
+            sleep(0.25);
+        } 
+        catch (PDOException $e) {
+            $this->connection->rollBack();
+            $error = $e->getMessage();
+            $total = 0;
+        }
+        catch (Exception $e) {
+            $this->connection->rollBack();
+            $error = $e->getMessage();
+            $total = 0;
+        }
+
+        return (object)array(
+            'success' => $success,
+            'error' => $error,
+            'sync' => (object)array(
+                'total' => $total
+            )
+        );
+    }
+
+    /**
+     * 
+     */
+    public function updateSyncProduct($data) {
+        $success = false;
+        $error = null;
+        $total = 0;
+         
+        try {
+            $this->connection->beginTransaction();
+            
+            $query = "UPDATE Product SET Stock = :stock WHERE ID = :id;";
+            foreach($data->ProductList as $product) {
+                $statement = $this->connection->prepare($query);
+                $statement->execute(array(
+                    ':stock' => $product->Stock,
+                    ':id' => $product->Id
+                ));
+                $total += $statement->rowCount();
+            }
+
+            $this->connection->commit();
+            $success = true;
             sleep(0.25);
         } 
         catch (PDOException $e) {

@@ -7,15 +7,16 @@ Defined('BASE_PATH') or die(ACCESS_DENIED);
 class SyncLocal extends Controller
 {
     private $data = null;
+    private $syncCreatio;
 
     public function __construct() {
-        header("Access-Control-Allow-Origin: *");
         header("Content-Type: application/json");
-        header("Accept: application/json");
-        header("Access-Control-Allow-Methods: OPTIONS, GET, POST, PUT");
-        header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
         $this->model("SyncModel", "Sync");
+        $this->model("UserModel", "User");
+        
+        require_once CONTROLLER. 'SyncCreatioController.php';
+        $this->syncCreatio = new SyncCreatio();
     }
 
     /**
@@ -62,14 +63,28 @@ class SyncLocal extends Controller
             $this->requestError(200, "Sync Process is Fail: ". $update->error);
         }        
 
+        // update data mobile ke creatio
+        $creatioData = json_encode(array(
+            'SalesRecordMovementId' => $salesRecordMovementId,
+            'Status' => $this->data->Status,
+            'ProductList' => $this->data->ProductList
+        ));
+        $syncCreatio = $this->syncCreatio->sync($creatioData);
+        if(!$syncCreatio->success || !$syncCreatio->response->Success) {
+            $this->requestError(200, "Sync Process is Fail: ". (!$syncCreatio->success ? $syncCreatio->message : $syncCreatio->response->Message));
+        }
+
+        $this->User->updateSyncUser($salesRecordMovementId);
+
         $result->success = true;
         $result->message = 'Sync Process is Success';
-        $result->syncResult = $update->sync;
+        $result->syncResult = (object)array(
+            'local' => $update->sync,
+            'creatio' => $syncCreatio
+        );
 
         http_response_code(200);
         echo json_encode($result, JSON_PRETTY_PRINT);
-
-        // running background proses sync ke creatio
     }
 
     /**
@@ -149,6 +164,40 @@ class SyncLocal extends Controller
 
         $result->success = true;
         $result->message = 'Proses Sync Product berhasil';
+        $result->syncResult = $update->sync;
+
+        http_response_code(200);
+        echo json_encode($result, JSON_PRETTY_PRINT);
+    }
+
+    /**
+     * 
+     */
+    public function updateSyncProduct() {
+        $result = (object)array(
+            'success' => false,
+            'message' => '',
+            'syncResult' => null
+        );
+
+        // get request body
+        $this->data = json_decode(file_get_contents("php://input"));
+        $isDataValid = isset($this->data) && !empty($this->data);
+        $isProductListValid = $isDataValid && isset($this->data->ProductList) && !empty($this->data->ProductList);
+
+        // check SRMId dan Product List tidak boleh kosong
+        if(!$isProductListValid) {
+            $this->requestError(200, "Product List cannot be empty");
+        }
+        
+        // update data mobile ke local
+        $update = $this->Sync->updateSyncProduct($this->data);
+        if(!$update->success) {
+            $this->requestError(200, "Sync Product Process is Fail: ". $update->error);
+        }        
+
+        $result->success = true;
+        $result->message = 'Sync Product Process is Success';
         $result->syncResult = $update->sync;
 
         http_response_code(200);

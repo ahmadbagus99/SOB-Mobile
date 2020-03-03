@@ -2,6 +2,13 @@
 Defined('BASE_PATH') or die(ACCESS_DENIED);
 
 class Request {
+    
+    public function __construct() {
+        header('Access-Control-Allow-Origin: *');
+        header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method');
+        header('Access-Control-Allow-Methods: OPTIONS, GET, POST, PUT, PATCH, DELETE');
+        header("Access-Control-Max-Age: 3600");
+    }
 
     /**
      * 
@@ -35,7 +42,7 @@ class Request {
     /**
      * 
      */
-    public function error($errorCode = 404, $json = false) {
+    public function error($errorCode = 404) {
         header("Content-Type: application/json");
         header("Accept: application/json");
         

@@ -97,6 +97,11 @@ $route = new \Klein\Klein();
             $controller->call('SyncLocal/updateSyncUser', array($request->salesRecordMovementId), true);
         });
 
+        // sync update product
+        $route->respond('PUT', '/sync/creatio-to-mobile/update-product', function($request) use ($controller) {
+            $controller->call('SyncLocal/updateSyncProduct', array($request->salesRecordMovementId), true);
+        });
+
     // end sync creatio to local
 
     /** Error Request */

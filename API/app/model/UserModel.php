@@ -86,6 +86,31 @@ class UserModel extends Database {
         );
     }
 
+    /**
+     * 
+     */
+    public function updateSyncUser($salesRecordMovement) {
+        $success = false;
+        $error = null;
+        $result = null;
+
+        try {
+            $q = $this->syncUser->update(['Status' => 'Closing'])
+                    ->where('Flight', $salesRecordMovement)
+                    ->execute();
+
+            $success = true;
+        } 
+        catch (PDOException $e) {
+            $error = $e->getMessage();
+        }
+        
+        return (object)array(
+            'success' => $success,
+            'error' => $error
+        );
+    }
+
     public function __destruct() {
         $this->close();
     }

@@ -12,7 +12,7 @@ define('DS', DIRECTORY_SEPARATOR);
  * DEV-LIVE => Development in cloud/host
  * PROD     => Golive / production
  */
-define('ENVIRONMET', "DEV");
+define('ENVIRONMENT', "DEV");
 
 date_default_timezone_set('Asia/Jakarta');
 session_start();
