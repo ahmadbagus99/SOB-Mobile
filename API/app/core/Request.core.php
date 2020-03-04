@@ -44,7 +44,6 @@ class Request {
      */
     public function error($errorCode = 404) {
         header("Content-Type: application/json");
-        header("Accept: application/json");
         
         $controller = new Controller();
 

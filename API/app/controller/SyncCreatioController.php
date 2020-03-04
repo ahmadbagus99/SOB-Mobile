@@ -17,7 +17,7 @@ class SyncCreatio extends Controller
     public function sync($data) {
         $request = $this->creatio->rest('POST', [
             'service' => 'SyncSOBMobileWS', 
-            'method' => 'SyncProduct'
+            'method' => 'SyncFlight'
         ], $data);
         
         return $request;

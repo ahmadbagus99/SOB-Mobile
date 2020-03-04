@@ -181,7 +181,7 @@ class SyncModel extends Database {
             }
 
             $this->connection->commit();
-            $success = ($totalSyncFlight > 0) ? true : false;
+            $success = true;
             sleep(0.25);
         } 
         catch (PDOException $e) {
@@ -403,7 +403,6 @@ class SyncModel extends Database {
             }
         }
 
-        $this->connection->commit();
         $success = $total > 0 ? true : false;
         sleep(0.25);
              

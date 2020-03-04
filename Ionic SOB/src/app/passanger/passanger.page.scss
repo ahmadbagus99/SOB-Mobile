@@ -101,7 +101,18 @@
 
 .kotak-baris{
 	background-color:#3daf2c;
+	height:  8vw;
+	width: 8vw;
 	text-align:center;
 	padding:1vw;
+	margin: 2vw 0vw 0vw 1vw;
 	color:#3daf2c;
+}
+.baris-kosong{
+	background-color:#acacac;
+	color:#acacac;
+}
+.belahan {
+	padding: 1vw; 
+	margin: 4vw 3vw 0vw 4vw;
 }

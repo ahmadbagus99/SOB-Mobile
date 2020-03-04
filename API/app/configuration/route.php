@@ -27,6 +27,10 @@ $route = new \Klein\Klein();
         $controller->call('login/index');
     });
 
+    $route->respond('GET', '/hash-password', function() use ($controller) {
+        $controller->call('HashPassword/index', array(), true);
+    });
+
     // sync mobile to local (api yang diconsume mobile)
         
         // sync flight (sales record movement) and product

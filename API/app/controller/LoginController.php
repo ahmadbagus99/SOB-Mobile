@@ -40,8 +40,8 @@ class Login extends Controller
         $getSyncUser = $this->User->getSyncUser($data->username);
         $getUserValid = $getUser->success && count($getUser->data) > 0;
         $getSyncUserValid = $getSyncUser->success && count($getSyncUser->data) > 0;
-        $checkPassword = $getUserValid ? ($data->password === $getUser->data[0]["Password"] ? true : false) : false;
-        // $checkPassword = $getUserValid ? password_verify($data->password, $getUser->data[0]['Password']) : false;
+        // $checkPassword = $getUserValid ? ($data->password === $getUser->data[0]["Password"] ? true : false) : false;
+        $checkPassword = $getUserValid ? password_verify($data->password, $getUser->data[0]['Password']) : false;
 
         if(!$checkPassword) {
             $this->requestError(200, "Your Username and Password is wrong");

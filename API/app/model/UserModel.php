@@ -111,6 +111,65 @@ class UserModel extends Database {
         );
     }
 
+    public function getAllUser() {
+        $success = false;
+        $error = null;
+        $result = null;
+
+        try {
+            $q = $this->user->select(['ID', 'Nama', 'Password']);
+
+            $result = $q->get();
+            $success = true;
+        } 
+        catch (PDOException $e) {
+            $error = $e->getMessage();
+        }
+        
+        return (object)array(
+            'success' => $success,
+            'data' => $result,
+            'error' => $error
+        );
+    }
+
+    /**
+     * 
+     */
+    public function hashPassword($data) {
+        $success = false;
+        $error = null;
+        $total = 0;
+
+        try {
+            $this->connection->beginTransaction();
+            
+            $query = "UPDATE User SET Password = :password WHERE ID = :id;";
+            foreach($data as $user) {
+                $statement = $this->connection->prepare($query);
+                $statement->execute(array(
+                    ':password' => password_hash($user['ID'], PASSWORD_BCRYPT),
+                    ':id' => $user['ID']
+                ));
+                $total += $statement->rowCount();
+            }
+
+            $this->connection->commit();
+            $success = true;
+            sleep(0.25);
+        } 
+        catch (PDOException $e) {
+            $error = $e->getMessage();
+            $total = 0;
+        }
+        
+        return (object)array(
+            'success' => $success,
+            'error' => $error,
+            'total' => $total
+        );
+    }
+
     public function __destruct() {
         $this->close();
     }
