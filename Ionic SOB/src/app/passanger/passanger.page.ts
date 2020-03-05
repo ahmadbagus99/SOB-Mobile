@@ -27,8 +27,6 @@ export class PassangerPage {
   ionViewWillEnter(){
     this.storage.get('DataPassenger').then( dataPassenger => {
       this.Passenger = dataPassenger.map( data => data.Seat);
-      // console.log(this.Passenger)
-      let newArr = this.Passenger.sort();
       this.PassengerSeat = [];
       for(let i=0; i<30; i++) {
         const seatItem = {
