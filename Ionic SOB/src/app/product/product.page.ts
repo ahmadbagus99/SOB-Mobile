@@ -86,45 +86,53 @@ export class ProductPage implements OnInit {
    * #Order
    * #Pre Order 
    */
-  order(){
-    this.AddArray2 = [];
-    for(let i = 0; i<this.product.length; i++){
-      this.total = 0;
-      this.grand = 0;
-      
-      for(let ii = 0; ii<this.AddArray.length; ii++){
-        if(this.product[i]['Nama'] == this.AddArray[ii]['Product'] ){
-          this.total += this.AddArray[ii]['Qty'];
-          this.grand = this.total * parseInt(this.AddArray[ii]['Price']);
-        } 
-      }
-      this.ArrayInput2 = { 
-        Id : this.product[i]['ID'],
-        Product : this.product[i]['Nama'], 
-        Price : this.product[i]["Price"],
-        User : this.product[i]["User"],
-        Passenger : this.product[i]["Passenger"],
-        Flight : this.product[i]['Flight'], 
-        Stock : this.product[i]['Stock'],
-        Seat : this.Seat,
-        Qty : this.total,
-        Total : this.grand
-      };
-      this.AddArray2.push(this.ArrayInput2);
-    }
-    /**
-     * Data Close Order
-     */
-      var DataPreOrder = [];
-          let body = {
-            NamaPassanger : this.NamePassenger,
-            Seat : this.Seat,
-            Product : this.AddArray[0]['Product']
+  async order(){
+    if (this.AddArray.length == 0){
+      const alert = await this.alertController.create({
+        message: 'Product not selected',
+        buttons: ['OK']
+      });
+      alert.present()
+    }else{
+      this.AddArray2 = [];
+      for(let i = 0; i<this.product.length; i++){
+        this.total = 0;
+        this.grand = 0;
+        
+        for(let ii = 0; ii<this.AddArray.length; ii++){
+          if(this.product[i]['Nama'] == this.AddArray[ii]['Product'] ){
+            this.total += this.AddArray[ii]['Qty'];
+            this.grand = this.total * parseInt(this.AddArray[ii]['Price']);
+          } 
         }
-        DataPreOrder.push(body);
-        this.storage.set('DataPreOrder', DataPreOrder);
-    this.storage.set('DataOrder', this.AddArray2);
-    this.navCtrl.navigateForward('/tabs/order');
+        this.ArrayInput2 = { 
+          Id : this.product[i]['ID'],
+          Product : this.product[i]['Nama'], 
+          Price : this.product[i]["Price"],
+          User : this.product[i]["User"],
+          Passenger : this.product[i]["Passenger"],
+          Flight : this.product[i]['Flight'], 
+          Stock : this.product[i]['Stock'],
+          Seat : this.Seat,
+          Qty : this.total,
+          Total : this.grand
+        };
+        this.AddArray2.push(this.ArrayInput2);
+      }
+      /**
+       * Data Close Order
+       */
+        var DataPreOrder = [];
+            let body = {
+              NamaPassanger : this.NamePassenger,
+              Seat : this.Seat,
+              Product : this.AddArray[0]['Product']
+          }
+          DataPreOrder.push(body);
+          this.storage.set('DataPreOrder', DataPreOrder);
+      this.storage.set('DataOrder', this.AddArray2);
+      this.navCtrl.navigateForward('/tabs/order');
+    }
   }
   /**
    * @param Product 

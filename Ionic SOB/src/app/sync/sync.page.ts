@@ -18,7 +18,7 @@ export class SyncPage {
     public storage: Storage, 
     public http: HttpClient, 
     public alertCtrl: AlertController,
-    public loading: LoadingController,
+    public loadingCtrl: LoadingController,
     private integration : Integration
   )
   { }
@@ -101,7 +101,15 @@ export class SyncPage {
    * Function to Handling Sync to Creatio
    * 
    */
-  syn(){
+  async syn(){
+    const loading = await this.loadingCtrl.create({
+      message : "",
+      spinner: 'crescent',
+      translucent : true,
+      cssClass:'custom-loader-class',
+      mode: 'md',
+    });
+    loading.present();
     const temp = [];
     this.storage.get('CloseOrderNew').then(data => {
 
@@ -152,21 +160,23 @@ export class SyncPage {
       console.log(DataLogin.SalesRecordMovementId)
       this.integration.postRequest(SyncBody, `sync/mobile-to-local/sync/${DataLogin.SalesRecordMovementId}`).subscribe(async data=>{
         console.log(data)
-        if (data.success == true){
-          const alert = await this.alertCtrl.create({
-            message: data.message,
-            buttons: ['OK']
-          });
-          alert.present();
-        }else{
-         const alert = await this.alertCtrl.create({
-           message: data.message,
-           buttons: ['OK']
-         });
-         alert.present();
-        }
+        loading.dismiss().then(async ()=>{
+          if (data.success == true){
+            const alert = await this.alertCtrl.create({
+              message: data.message,
+              buttons: ['OK']
+            });
+            alert.present();
+          }else{
+           const alert = await this.alertCtrl.create({
+             message: data.message,
+             buttons: ['OK']
+           });
+           alert.present();
+          }
+        })
       })
     })
-     })
+    })
   }
 }

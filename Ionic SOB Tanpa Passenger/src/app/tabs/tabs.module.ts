@@ -24,7 +24,7 @@ const routes: Routes = [
       { path: 'contact', loadChildren: '../contact/contact.module#ContactPageModule' },
       { path: 'flight', loadChildren: '../flight/flight.module#FlightPageModule' },
       { path: 'report-note', loadChildren: '../report-note/report-note.module#ReportNotePageModule' },
-      { path: 'detail-order', loadChildren: './detail-order/detail-order.module#DetailOrderPageModule' }
+      { path: 'detail-order', loadChildren: '../detail-order/detail-order.module#DetailOrderPageModule' }
     ]
   },
   {
