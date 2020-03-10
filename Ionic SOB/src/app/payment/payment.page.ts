@@ -57,39 +57,39 @@ async getData(){
     this.storage.get('CloseOrderNew').then( data => {
       if ( data != null){
         this.items = data;
+        this.Total = 0;
+        data.forEach(dataOrder => {
+          this.Total += dataOrder.Total
+        });
+  
+        this.temp = [];
+        data.forEach(dataOrder => {
+            let name = dataOrder.NamaPassanger;
+            let total = dataOrder.Total
+            
+            let check = this.temp.filter(item =>{
+              return item.NamaPassanger == name;
+            }).length > 0;
+  
+            if (check){
+              let index = this.temp.findIndex(item =>{
+                return item.NamaPassanger == name;
+              })
+              this.temp[index].Total += total;
+            }else{
+              this.temp.push(dataOrder);
+            }
+        });
       }else if( data == null){
-        this.items = [];
+        this.temp = [];
         let body = {
-          Product: 'No Product Selected',
+          NamaPassanger: 'No Passenger   Selected',
           Seat: 'No Seat',
           Sold: '0',
           Total: '0'
         }
-        this.items.push(body)
+        this.temp.push(body)
       }
-      this.Total = 0;
-      data.forEach(dataOrder => {
-        this.Total += dataOrder.Total
-      });
-
-      this.temp = [];
-      data.forEach(dataOrder => {
-          let name = dataOrder.NamaPassanger;
-          let total = dataOrder.Total
-          
-          let check = this.temp.filter(item =>{
-            return item.NamaPassanger == name;
-          }).length > 0;
-
-          if (check){
-            let index = this.temp.findIndex(item =>{
-              return item.NamaPassanger == name;
-            })
-            this.temp[index].Total += total;
-          }else{
-            this.temp.push(dataOrder);
-          }
-      });
     });
     this.storage.get('FlightData').then((val2) => {
       this.items2 = val2;

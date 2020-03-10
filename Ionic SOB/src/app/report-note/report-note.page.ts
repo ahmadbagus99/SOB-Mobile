@@ -9,7 +9,6 @@ import { Storage } from '@ionic/storage';
 export class ReportNotePage {
 
 Note = [];
-Number : [];
 
   constructor
   (

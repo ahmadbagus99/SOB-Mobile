@@ -1,0 +1,26 @@
+<ion-header translucent>
+  <ion-toolbar>
+    <ion-title text-center>Syncronize to Creatio</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-row>
+    <ion-col text-center style="border:1px solid #9aa3aa;color:#ffffff;background-color: #3daf2c;" size='4'>User Account</ion-col>
+    <ion-col text-center style="border:1px solid #9aa3aa;color:#ffffff;background-color: #3daf2c;" size='3'>Login Status</ion-col>
+    <ion-col text-center style="border:1px solid #9aa3aa;color:#ffffff;background-color: #3daf2c;" size='5'>Syncronize Status</ion-col>
+  </ion-row>
+
+  <ion-row *ngFor="let user of users">
+    <ion-col text-center style="border:1px solid #9aa3aa;" size='4'>{{user.User}}</ion-col>
+    <ion-col text-center style="border:1px solid #9aa3aa;" size='3'>{{user.Status}}</ion-col>
+    <ion-col text-center style="border:1px solid #9aa3aa;" size='5'>{{user.SyncStatus}}</ion-col>
+  </ion-row>
+
+  <ion-item>
+    <button class="button-light" (click)="Syncronize()" style="background-color:#0b8643;margin-top:5vw;">Syncronize</button>
+  </ion-item>
+</ion-content>

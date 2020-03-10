@@ -5,14 +5,12 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { SyncPage } from './sync.page';
-
-import { SyncModalPage } from '../sync-modal/sync-modal.page'
+import { SyncModalPage } from './sync-modal.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: SyncPage
+    component: SyncModalPage
   }
 ];
 
@@ -23,7 +21,6 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [SyncPage, SyncModalPage],
-  entryComponents: [SyncModalPage]
+  declarations: [SyncModalPage]
 })
-export class SyncPageModule {}
+export class SyncModalPageModule {}

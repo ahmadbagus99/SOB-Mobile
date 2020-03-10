@@ -32,6 +32,18 @@ No : any = [];
       this.Seat = data.Seat;
     })
     this.storage.get('CloseOrderNew').then(dataOrder =>{
+     if ( dataOrder == null){
+      let i = 1;
+      let body = {
+        No: i++,
+        NamaPassanger: 'No Passenger Selected',
+        Seat: 'No Seat',
+        Product: 'No Product Selected',
+        Sold: '0',
+        Total: '0'
+      }
+      this.Order.push(body);
+     }else if ( dataOrder != null){
       let i = 1;
       dataOrder.forEach(data => {
         if ( data.NamaPassanger == this.NamePassenger){
@@ -47,6 +59,7 @@ No : any = [];
           this.Order.push(body);
         }
       });
+     }
     })
   }
 }

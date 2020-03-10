@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { NavController,LoadingController, AlertController } from '@ionic/angular';
+import { NavController,LoadingController, AlertController, ModalController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { HttpClient } from '@angular/common/http';
 import { Integration } from '../publicServices/Integration';
+import { SyncModalPage } from '../sync-modal/sync-modal.page'
 
 @Component({
   selector: 'app-sync',
@@ -19,7 +20,8 @@ export class SyncPage {
     public http: HttpClient, 
     public alertCtrl: AlertController,
     public loadingCtrl: LoadingController,
-    private integration : Integration
+    private integration : Integration,
+    public modalController: ModalController
   )
   { }
   /**
@@ -50,7 +52,7 @@ export class SyncPage {
    */
   async SyncConfirmation(){
     const alert = await this.alertCtrl.create({
-      message: 'Synchronize to Creatio?',
+      message: 'Are You Sure?',
       buttons: [
         {
           text: 'Cancel',
@@ -95,6 +97,7 @@ export class SyncPage {
     this.storage.remove("Id");
     this.storage.remove("NamePassenger");
     this.storage.remove("Seat");
+    this.storage.remove("Note")
     this.navCtrl.navigateForward('login');
   }
   /**
@@ -155,11 +158,8 @@ export class SyncPage {
        Status : 'Closing',
        ProductList : SyncData
      }
-     console.log(SyncBody)
     this.storage.get('DataLogin').then(DataLogin =>{
-      console.log(DataLogin.SalesRecordMovementId)
       this.integration.postRequest(SyncBody, `sync/mobile-to-local/sync/${DataLogin.SalesRecordMovementId}`).subscribe(async data=>{
-        console.log(data)
         loading.dismiss().then(async ()=>{
           if (data.success == true){
             const alert = await this.alertCtrl.create({
@@ -179,4 +179,14 @@ export class SyncPage {
     })
     })
   }
+/**
+ * Button open Modal
+ */
+async SyncCreatio(){
+const modal = await this.modalController.create({
+ component: SyncModalPage 
+});
+return await modal.present();
+}
+
 }

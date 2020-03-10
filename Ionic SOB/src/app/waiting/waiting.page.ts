@@ -86,18 +86,15 @@ export class WaitingPage {
 
   doRefresh(event) {
     this.getData();
-    console.log('Begin async operation');
 
     setTimeout(() => {
-      console.log('Async operation has ended');
       event.target.complete();
     }, 2000);
   }
   callphone(number:string){
-    console.log(number);
     this.callNumber.callNumber(number, true)
-    .then(res => console.log('Launched dialer!', res))
-    .catch(err => console.log('Error launching dialer', err));
+    .then(res => res)
+    .catch(err => err);
   }
   
   async presentAlert() {
@@ -105,7 +102,6 @@ export class WaitingPage {
       message: 'Contractor Not Find',
       buttons: ['OK']
     });
-
     await alert.present();
   }
 }
