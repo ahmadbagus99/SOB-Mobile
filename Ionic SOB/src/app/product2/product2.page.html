@@ -3,106 +3,35 @@
     <ion-back-button slot="start" defaultHref="/tabs/main"></ion-back-button>
     <ion-title text-center>Product</ion-title>
   </ion-toolbar>
-  <!-- <ion-searchbar [(ngModel)]="searchTerm" (ionChange)="setFilteredItems()"></ion-searchbar> -->
+  <ion-searchbar [(ngModel)]="searchTerm" (ionChange)="setFilteredItems()"></ion-searchbar>
 </ion-header>
 
-<ion-content>
-<!-- ROW 1 -->
-<ion-grid>
-  <ion-row>
-    <ion-col>
-      <ion-card button (click)="productCategory('Hotmeals')">
-        <img src="../../assets/img/icon/Img Product/hotmeals.png">
-        <ion-card-header>
-          <ion-card-subtitle class="ion-text-center">HOT MEALS</ion-card-subtitle>
-        </ion-card-header>
-      </ion-card>
-    </ion-col>
-    <ion-col>
-      <ion-card button (click)="productCategory('Breads')">
-        <img src="../../assets/img/icon/Img Product/breads.png">
-        <ion-card-header>
-          <ion-card-subtitle class="ion-text-center">BREADS</ion-card-subtitle>
-        </ion-card-header>
-      </ion-card>
-    </ion-col>
-  </ion-row>
-  <!-- ROW 2 -->
-  <ion-row>
-    <ion-col>
-      <ion-card button (click)="productCategory('Noodles')">
-        <img src="../../assets/img/icon/Img Product/Instan Noodles.png">
-        <ion-card-header>
-          <ion-card-subtitle class="ion-text-center">INSTANT NOODLES / HOT SNACKS</ion-card-subtitle>
-        </ion-card-header>
-      </ion-card>
-    </ion-col>
-    <ion-col>
-      <ion-card button (click)="productCategory('Biscuit')">
-        <img src="../../assets/img/icon/Img Product/Biscuit.jpg">
-        <ion-card-header>
-          <ion-card-subtitle class="ion-text-center">BISCUITS / CHOCOLATES / CANDY</ion-card-subtitle>
-        </ion-card-header>
-      </ion-card>
-    </ion-col>
-  </ion-row>
-  <!-- ROW 3 -->
-  <ion-row>
-    <ion-col>
-      <ion-card button (click)="productCategory('Chips')">
-        <img src="../../assets/img/icon/Img Product/chips.png">
-        <ion-card-header>
-          <ion-card-subtitle class="ion-text-center">CHIPS/NUTS</ion-card-subtitle>
-        </ion-card-header>
-      </ion-card>
-    </ion-col>
-    <ion-col>
-      <ion-card button (click)="productCategory('Beverages')">
-        <img src="../../assets/img/icon/Img Product/beverages.png">
-        <ion-card-header>
-          <ion-card-subtitle class="ion-text-center">BEVERAGES</ion-card-subtitle>
-        </ion-card-header>
-      </ion-card>
-    </ion-col>
-  </ion-row>
-  <!-- ROW 4 -->
-  <ion-row>
-    <ion-col>
-      <ion-card button (click)="productCategory('HotBeverages')">
-        <img src="../../assets/img/icon/Img Product/hot bavarages.png">
-        <ion-card-header>
-          <ion-card-subtitle class="ion-text-center">HOT BEVERAGES</ion-card-subtitle>
-        </ion-card-header>
-      </ion-card>
-    </ion-col>
-    <ion-col>
-      <ion-card button (click)="productCategory('UMKM')">
-        <img src="../../assets/img/icon/Img Product/umkm.png">
-        <ion-card-header>
-          <ion-card-subtitle class="ion-text-center">UMKM</ion-card-subtitle>
-        </ion-card-header>
-      </ion-card>
-    </ion-col>
-  </ion-row>
-   <!-- ROW 4 -->
-   <ion-row>
-    <ion-col>
-      <ion-card button (click)="productCategory('Other')">
-        <img src="../../assets/img/icon/Img Product/other.png">
-        <ion-card-header>
-          <ion-card-subtitle class="ion-text-center">OTHERS</ion-card-subtitle>
-        </ion-card-header>
-      </ion-card>
-    </ion-col>
-    <ion-col>
-      <ion-card button (click)="productCategory('Complement')">
-        <img src="../../assets/img/icon/Img Product/complement.png">
-        <ion-card-header>
-          <ion-card-subtitle class="ion-text-center">COMPLEMENT</ion-card-subtitle>
-        </ion-card-header>
-      </ion-card>
-    </ion-col>
-  </ion-row>
-</ion-grid>
+<ion-content color="secondary">
+  <div class="box2" style="margin-top:5px;">
+    <div class="user">
+
+      <ion-row style="border-bottom:1px solid #f1f1f1;" *ngFor="let item of items">
+        <ion-col style="font-size:4vw;padding-top:10px;color:#fb1832" size="2">
+          <img src="../assets/img/Promo/Aqua.jpg">
+        </ion-col>
+        <ion-col style="font-size:4vw;padding-top:10px;" size="8">
+          <ion-row >
+            <ion-col >
+              <strong>{{item.Nama}}</strong>
+            </ion-col>
+          </ion-row>
+          <ion-row >
+            <ion-col >
+              <span style="font-size:3vw;">Price</span><br>Rp.{{item.Price | number}}
+            </ion-col>
+          </ion-row>
+          
+        </ion-col>
+        <ion-col style="font-size:4vw;padding-top:10px;">
+          <span style="font-size:3vw;">Qty</span><br>{{item.Stock}}
+        </ion-col>
+      </ion-row>
+    </div>
+  </div>
 
 </ion-content>

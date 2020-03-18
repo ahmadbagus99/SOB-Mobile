@@ -29,11 +29,11 @@
           
         </ion-col>
         <ion-col style="font-size:4vw;padding-top:10px;">
-          <ion-icon name="remove-circle" (click)="decrement(item.Nama, item.Price, Seat)" style="font-size:5vw;color:#be0f0f;" *ngIf="suma(item.Nama, item.Price, Seat) > 0"></ion-icon>
+          <ion-icon name="remove-circle" (click)="decrement(item.Nama, item.Price, User)" style="font-size:5vw;color:#be0f0f;" *ngIf="suma(item.Nama, item.Price, User) > 0"></ion-icon>
             <div style="font-size:5vw;padding:1vw;">
-              {{suma(item.Nama, item.Price, Seat)}}
+              {{suma(item.Nama, item.Price, User)}}
             </div>
-            <ion-icon name="add-circle" (click)="increment(item.Nama, item.Price, Seat)" style="font-size:5vw;color:#0b8643;"></ion-icon>
+            <ion-icon name="add-circle" (click)="increment(item.Nama, item.Price, User)" style="font-size:5vw;color:#0b8643;"></ion-icon>
         </ion-col>
       </ion-row>
 

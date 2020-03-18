@@ -78,6 +78,9 @@ export class SyncPage {
   payment() {
     this.navCtrl.navigateForward('/tabs/payment');
   }
+  service() {
+    this.navCtrl.navigateForward('/tabs/report-note');
+  }
   /**
    * Function to Log Out and Remove Storage
    * Remove 
