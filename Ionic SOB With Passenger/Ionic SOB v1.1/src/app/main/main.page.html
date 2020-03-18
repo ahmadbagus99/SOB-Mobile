@@ -1,0 +1,146 @@
+<ion-content color="secondary">
+
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content style="color: brown;"
+      pullingIcon="arrow-dropdown"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+
+    <div class="box">
+    	<div class="user">
+        <div class="logo-center">
+          <img src="../assets/img/logo/logo.jpg" >
+        </div>
+    	</div>
+
+   
+</div>
+<div class="box" style="margin-top: 5px;">
+  <ion-grid style="text-align: center;">
+    <ion-row>
+      <ion-col>
+        <div style="color:#242626">
+          <img src="../assets/img/icon/button-1.png" (click)="passanger()">
+          <div style="font-size:3vw;">Passanger</div>
+        </div>
+      </ion-col>
+      <ion-col>
+        <div style="color:#242626">
+          <img src="../assets/img/icon/button-2.png" (click)="service(notes)">
+          <div style="font-size:3vw;">Note</div>
+        </div>
+      </ion-col>
+      <ion-col>
+        <div style="color:#242626">
+          <img src="../assets/img/icon/button-3.png" (click)="product2()">
+          <div style="font-size:3vw;">Product</div>
+        </div>
+      </ion-col>
+      <ion-col>
+        <div style="color:#242626">
+         <img src="../assets/img/icon/button-4.png" (click)="payment()">
+         <div style="font-size:3vw;">Order</div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</div>
+
+<div class="box" style="margin-top: 5px;">
+  <ion-slides pager = "true" [options]="sliderOpts">
+    <ion-slide>
+      <img src="../assets/img/Promo/Promo-1.jpg" style="height:40vw;">
+    </ion-slide>
+     <ion-slide>
+      <img src="../assets/img/Promo/Promo-2.jpg" style="height:40vw;">
+    </ion-slide>
+    <ion-slide>
+      <img src="../assets/img/Promo/Promo-3.jpg" style="height:40vw;">
+    </ion-slide>
+  </ion-slides>
+</div>
+
+<ion-slides style="margin-top: 5px;background-color: #ffffff;padding-bottom:10px;" pager = "true" [options]="sliderOpts" *ngIf="items?.length <= 0">
+  <ion-slide>
+    <div class="box">
+        <div class="box-tukang">
+           <ion-row>
+            <ion-col>
+              Please Syncronize Data First
+            </ion-col>
+          </ion-row>
+         </div>
+         <div class="box-tukang2">
+            <ion-grid style="text-align: center;">
+          <ion-row>
+            <ion-col>
+              <div class="text-warna-putih">
+                <div style="font-size:8vw;"> <ion-icon name="ios-timer" style="font-size:8vw;"></ion-icon></div>
+                <div style="font-size:4vw;"></div>
+              </div>
+            </ion-col>
+
+             <ion-col>
+              <div class="text-warna-putih">
+                <div style="font-size:8vw;"><ion-icon name="ios-person" style="font-size:8vw;"></ion-icon></div>
+                <div style="font-size:4vw;"></div>
+              </div>
+            </ion-col>
+
+            <ion-col>
+              <div class="text-warna-putih">
+                <div style="font-size:4vw;">Rp.</div>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+         </div>
+    </div>
+  </ion-slide>
+</ion-slides>
+
+<ion-slides  style="margin-top: 5px;background-color: #ffffff;padding-bottom:10px;" *ngIf="items?.length > 0">
+    <ion-slide *ngFor="let item of items">
+      <div class="box">
+          <div class="box-tukang">
+             <ion-row>
+              <ion-col>
+                Current Flight Number
+              </ion-col>
+              
+            </ion-row>
+           </div>
+           <div class="box-tukang2">
+              <ion-grid style="text-align: center;">
+            <ion-row>
+              <ion-col>
+                <div class="text-warna-putih">
+                  <div style="font-size:8vw;"> <ion-icon name="ios-timer" style="font-size:8vw;"></ion-icon></div>
+                  <div style="font-size:4vw;">{{item.Time}}</div>
+                </div>
+              </ion-col>
+  
+               <ion-col>
+                <div class="text-warna-putih">
+                  <div style="font-size:8vw;"><ion-icon name="airplane" style="font-size:8vw;"></ion-icon></div>
+                  <div style="font-size:4vw;">QG-{{item.No}}</div>
+                </div>
+              </ion-col>
+  
+              <ion-col>
+                <div class="text-warna-putih">
+                  <div style="font-size:8vw;"><ion-icon name="ios-person" style="font-size:8vw;"></ion-icon></div>
+                  <div style="font-size:4vw;">{{UserID}}</div>
+                </div>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+           </div>
+      </div>
+    </ion-slide>
+  </ion-slides >
+
+</ion-content>

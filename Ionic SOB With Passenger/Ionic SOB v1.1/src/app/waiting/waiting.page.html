@@ -1,0 +1,85 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-back-button slot="start" defaultHref="/tabs/passanger"></ion-back-button>
+    <ion-title text-center>Detail Passenger</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="secondary">
+
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content style="color: brown;"
+          pullingIcon="arrow-dropdown"
+          pullingText="Pull to refresh"
+          refreshingSpinner="circles"
+          refreshingText="Refreshing...">
+        </ion-refresher-content>
+      </ion-refresher>
+
+  <div class="box-2" (ionRefresh)="getData()" *ngFor="let item of items">
+    <div  style="font-size:3.5vw;color:#767676;" *ngIf="item.Seat == seat">
+      <ion-row class="isi-box" >
+        <ion-col size="3" >
+            <img src="../assets/img/Promo/no_image_user.png" style="border-radius:100px;width:90%;">
+        </ion-col>
+        <ion-col style="width:60%;">
+            <ion-row>
+              <ion-col>
+                {{item.Nama}}
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                  Customer : {{item.Category}}
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                  Birth Date : {{item.Birth}}
+              </ion-col>
+            </ion-row>
+        </ion-col>
+      </ion-row>
+      <ion-row style="border-top:1px solid #f1f1f1;padding-left:20px;" *ngIf="item.Seat == seat">
+        <ion-col style="font-size:4vw;border-right:1px solid #f1f1f1;padding-top:10px;color:#fb1832" size="7">
+          Seat : {{seat}}
+        </ion-col>
+        <ion-col style="font-size:4vw;padding-top:10px;color:#f2af58;" >
+          {{item.Phone}}
+        </ion-col>
+      </ion-row>
+    
+  
+    <ion-item style="margin-top:20px;" >
+      <button class="button-light" (click)="product()" style="background-color:#0b8643;">Next</button>
+    </ion-item>
+  </div>
+  </div>
+
+  <div class="box" style="margin-top:10px;color: #767676;height:45%;" *ngFor="let item2 of items2">
+    <ion-row>
+      <ion-col size="2">
+          <img src="../assets/img/icon/home.png">
+      </ion-col>
+      <ion-col>
+        <ion-row>
+          <ion-col style="font-size:4vw;">
+              Flight Number
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col style="font-size:4vw;">
+              <ion-icon name="md-pin" style="font-size:4vw;color:#fcc57e;"></ion-icon> {{item2.No}}
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col style="font-size:4vw;">
+              <ion-icon name="calendar" style="font-size:4vw;color:#fcc57e;"></ion-icon> {{item2.Time}}
+          </ion-col>
+        </ion-row>
+        
+      </ion-col>
+    </ion-row>
+
+  </div>
+  </ion-content>

@@ -1,0 +1,59 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-back-button slot="start" defaultHref="/tabs/main"></ion-back-button>
+    <ion-title text-center>Basket Payment</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="secondary">
+
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content style="color: brown;"
+      pullingIcon="arrow-dropdown"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+ 
+  <div class="box" style="margin-top:10px;color: #767676;">
+    <ion-row>
+      <ion-col size="2">
+          <img src="../assets/img/icon/home.png">
+      </ion-col>
+      <ion-col>
+        <ion-row>
+          <ion-col style="font-size:4vw;">Report Order</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col style="font-size:4vw;" *ngFor="let item2 of items2">
+              <ion-icon name="md-pin" style="font-size:4vw;color:#fcc57e;"></ion-icon> QG-{{item2.No}}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col style="font-size:4vw;">
+              <ion-icon name="ios-create" style="font-size:4vw;color:#767676;"></ion-icon> {{Total | currency:'Rp '}}</ion-col>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+  </div>
+  
+  <div class="box" style="margin-top:10px;color: #767676;">
+    <ion-row>
+      <ion-col text-center style="border:1px solid #9aa3aa;color:#ffffff;background-color: #3daf2c;" size='5'>Passanger Name</ion-col>
+      <ion-col text-center style="border:1px solid #9aa3aa;color:#ffffff;background-color: #3daf2c;" size='2'>Seat</ion-col>
+      <ion-col text-center style="border:1px solid #9aa3aa;color:#ffffff;background-color: #3daf2c;" size='5'>Total Price</ion-col>
+    </ion-row>
+
+    <ion-row *ngFor="let allDatas of temp">
+      <ion-col text-center style="border:1px solid #9aa3aa;" size='5'>
+      <ion-item button
+      (click)="DetailOrder(allDatas.NamaPassanger, allDatas.Seat)">
+        {{allDatas.NamaPassanger}}
+      </ion-item>
+      </ion-col>
+      <ion-col text-center style="border:1px solid #9aa3aa;" size='2'>{{allDatas.Seat}}</ion-col>
+      <ion-col text-center style="border:1px solid #9aa3aa;" size='5'>{{allDatas.Total | currency:'Rp '}}</ion-col>
+    </ion-row>
+  </div>
+  
+</ion-content>

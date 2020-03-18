@@ -1,0 +1,117 @@
+ion-searchbar{
+	background-color:#ffffff;
+}
+.header-kanan{
+	float: left;
+	width: 50%;
+}
+.header-kiri{
+	float: right;
+	width:50%;
+	text-align:right;
+}
+.box{
+	background-color:#ffffff;
+	padding:20px;
+	width:100%;
+	height:auto;
+}
+.box2{
+	background-color:#ffffff;
+	width:100%;
+	height:auto;
+}
+.user{
+	width:100%;
+	border-radius:5px;
+	color:#2b2b2b;
+}
+.logo-center{
+	text-align: center;
+}
+.logo-center img {
+	width:30%;
+}
+
+.logo-center2{
+	text-align: center;
+}
+.logo-center2 img {
+	width:100%;
+}
+
+.line-center{
+	text-align: center;
+}
+.line-center img {
+	width:70%;
+}
+.put{
+	width:100%;
+	border:1px solid #c6d4d9;
+	border-radius:5px;
+}
+.box-tukang{
+	color:#fffdff;
+	font-size:3.5vw;
+	
+	padding:10px;
+	border-radius:5px 5px 0px 0px;
+	background-color:#2f62bb;
+}
+.box-tukang2{
+	color:#fffdff;
+	font-size:3.5vw;
+
+	padding:5px;
+	border-radius:0px 0px 5px 5px;
+	background-color:#2f65bd;
+}
+.text-warna-putih{
+	color:#fffdff;
+}
+
+.button-light{
+	font-size:4vw;color: #ffffff;
+	background-color:#fcc57e;
+	padding: 3vw 3vw 3vw 3vw;
+	width:100%;
+	border-radius:5px;
+}
+.grid-1{
+	text-align: center;
+	margin-top: -3vw;
+}
+.col-1{
+	font-size:3vw;
+	text-align: right;
+	color:#767676;
+}
+.col-2{
+	font-size:3vw;
+	color:#767676;
+}
+.col-3{
+	font-size:3vw;
+	text-align: center;
+	color:#767676;
+}
+.input-description{
+	border-bottom: 1px solid #c6d4d9;
+	height:20vw;
+}
+
+.red:before {
+    color: red;
+    }
+
+    .green:before {
+    color: green;
+    }
+
+    .flex_row {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: row; 
+    flex-direction: row;
+    }

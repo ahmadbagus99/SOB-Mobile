@@ -1,0 +1,66 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-back-button slot="start" defaultHref="/tabs/payment"></ion-back-button>
+    <ion-title text-center>Detail Order <b>{{NamePassenger}}</b></ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+ <ion-row>
+  <ion-col>
+    <ion-text> Name </ion-text> 
+  </ion-col>
+  <ion-col>
+   : {{NamePassenger}}
+  </ion-col>
+  <ion-col></ion-col>
+  <ion-col></ion-col>
+ </ion-row>
+
+ <ion-row>
+  <ion-col>
+    <ion-text> Seat </ion-text> 
+  </ion-col>
+  <ion-col>
+   : {{Seat}}
+  </ion-col>
+  <ion-col></ion-col>
+  <ion-col></ion-col>
+ </ion-row>
+
+ <ion-row>
+  <ion-col>
+    <ion-text> No Flight </ion-text> 
+  </ion-col>
+  <ion-col *ngFor="let item of DataFlight">
+   : {{item.No}}
+  </ion-col>
+  <ion-col></ion-col>
+  <ion-col></ion-col>
+ </ion-row>
+
+ <ion-row>
+  <ion-col>
+    <ion-text> Date </ion-text> 
+  </ion-col>
+  <ion-col style="font-size: 15px;">
+   : {{Date}}
+  </ion-col>
+  <ion-col></ion-col>
+  <ion-col></ion-col>
+ </ion-row>
+
+  <div class="box" style="margin-top:10px;color: #767676;">
+    <ion-row>
+      <ion-col text-center style="border:1px solid #9aa3aa;color:#ffffff;background-color: #3daf2c;" size='2'>No</ion-col>
+      <ion-col text-center style="border:1px solid #9aa3aa;color:#ffffff;background-color: #3daf2c;" size='5'>Product</ion-col>
+      <ion-col text-center style="border:1px solid #9aa3aa;color:#ffffff;background-color: #3daf2c;" size='5'>Price</ion-col>
+    </ion-row>
+
+    <ion-row *ngFor="let allDatas of Order">
+        <ion-col text-center style="border:1px solid #9aa3aa;" size='2'>{{allDatas.No}}</ion-col>
+        <ion-col text-center style="border:1px solid #9aa3aa;" size='5'>{{allDatas.Product}}</ion-col>
+        <ion-col text-center style="border:1px solid #9aa3aa;" size='5'>{{allDatas.Total | currency:'Rp '}}</ion-col>
+    </ion-row>
+  </div>
+</ion-content>

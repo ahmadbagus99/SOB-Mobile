@@ -1,0 +1,64 @@
+ <ion-header>
+   <ion-toolbar>
+    <ion-back-button slot="start" defaultHref="/tabs/main"></ion-back-button>
+     <ion-title text-center>Passenger</ion-title>
+   </ion-toolbar>
+ </ion-header>
+
+<ion-content color="secondary">
+  <div class="box2" style="margin-top:5px;min-height:80%;">
+    <div class="user">
+        <div class="logo-center2">
+        <img src="../assets/img/Promo/pick.png" >
+       
+        <div class="content-passanger">
+
+          <!-- Header -->
+          <ion-row>
+            <ion-col size='5'>
+              <ion-row>
+                <ion-col>A</ion-col>
+                <ion-col>B</ion-col>
+                <ion-col>C</ion-col>
+              </ion-row>
+            </ion-col>
+            <ion-col size='2'></ion-col>
+            <ion-col size='5'>
+              <ion-row>
+                <ion-col>D</ion-col>
+                <ion-col>E</ion-col>
+                <ion-col>F</ion-col>
+              </ion-row>
+            </ion-col>
+          </ion-row>
+
+          <!-- Body -->
+          <div *ngFor="let item of PassengerSeat">
+            <ion-row>
+              <ion-col size="5">
+                <ion-row style="margin-bottom:2vw;">
+                  <ion-col><div class="{{item.seatA}}" (click)="waiting(item.no.toString() + 'A')"></div></ion-col>
+                  <ion-col><div class="{{item.seatB}}" (click)="waiting(item.no.toString() + 'B')"></div></ion-col>
+                  <ion-col><div class="{{item.seatC}}" (click)="waiting(item.no.toString() + 'C')"></div></ion-col>
+                </ion-row>
+              </ion-col>
+
+              <ion-col size='2'><div class="belahan">{{item.no}}</div></ion-col>
+
+              <ion-col size="5">
+                <ion-row style="margin-bottom:2vw;">
+                  <ion-col><div class="{{item.seatD}}" (click)="waiting(item.no.toString() + 'D')"></div></ion-col>
+                  <ion-col><div class="{{item.seatE}}" (click)="waiting(item.no.toString() + 'E')"></div></ion-col>
+                  <ion-col><div class="{{item.seatF}}" (click)="waiting(item.no.toString() + 'F')"></div></ion-col>
+                </ion-row>
+              </ion-col>
+
+            </ion-row>
+          </div>
+          
+        </div>
+
+      </div>
+    </div>
+  </div>
+</ion-content>

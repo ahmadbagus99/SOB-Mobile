@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-back-button slot="start" style="color: #000000;" defaultHref="/tabs/waiting"></ion-back-button>
+    <ion-title text-center>Select Product</ion-title>
+    <ion-button fill="clear" slot="end" style="color: #000000;" (click)="order()">Next</ion-button>
+  </ion-toolbar>
+  <ion-searchbar [(ngModel)]="searchTerm" (ionChange)="setFilteredItems()"></ion-searchbar>
+</ion-header>
+
+<ion-content color="secondary">
+  <div class="box2" style="margin-top:5px;">
+    <div class="user">
+
+      <ion-row style="border-bottom:1px solid #f1f1f1;" *ngFor="let item of items">
+        <ion-col style="font-size:4vw;padding-top:10px;color:#fb1832" size="2">
+          <img src="../assets/img/Promo/Aqua.jpg">
+        </ion-col>
+        <ion-col style="font-size:4vw;padding-top:10px;" size="8">
+          <ion-row >
+            <ion-col >
+              <strong>{{item.Nama}}</strong>
+            </ion-col>
+          </ion-row>
+          <ion-row >
+            <ion-col >
+              <span style="font-size:3vw;">Price</span><br>Rp.{{item.Price | number}}
+            </ion-col>
+          </ion-row>
+          
+        </ion-col>
+        <ion-col style="font-size:4vw;padding-top:10px;">
+          <ion-icon name="remove-circle" (click)="decrement(item.Nama, item.Price, Seat)" style="font-size:5vw;color:#be0f0f;" *ngIf="suma(item.Nama, item.Price, Seat) > 0"></ion-icon>
+            <div style="font-size:5vw;padding:1vw;">
+              {{suma(item.Nama, item.Price, Seat)}}
+            </div>
+            <ion-icon name="add-circle" (click)="increment(item.Nama, item.Price, Seat)" style="font-size:5vw;color:#0b8643;"></ion-icon>
+        </ion-col>
+      </ion-row>
+
+    </div>
+  </div>
+
+</ion-content>

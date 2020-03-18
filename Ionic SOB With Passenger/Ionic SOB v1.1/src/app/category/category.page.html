@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-back-button slot="start" defaultHref="/tabs/main"></ion-back-button>
+    <ion-title text-center>Product</ion-title>
+  </ion-toolbar>
+  <ion-searchbar [(ngModel)]="searchTerm" (ionChange)="setFilteredItems()"></ion-searchbar>
+</ion-header>
+
+<ion-content color="secondary">
+  <div class="box2" style="margin-top:5px;">
+    <div class="user">
+
+      <ion-row style="border-bottom:1px solid #f1f1f1;" *ngFor="let item of items">
+        <ion-col style="font-size:4vw;padding-top:10px;color:#fb1832" size="2">
+          <img src="../assets/img/Promo/Aqua.jpg">
+        </ion-col>
+        <ion-col style="font-size:4vw;padding-top:10px;" size="8">
+          <ion-row >
+            <ion-col >
+              <strong>{{item.Nama}}</strong>
+            </ion-col>
+          </ion-row>
+          <ion-row >
+            <ion-col >
+              <span style="font-size:3vw;">Price</span><br>Rp.{{item.Price | number}}
+            </ion-col>
+          </ion-row>
+          
+        </ion-col>
+        <ion-col style="font-size:4vw;padding-top:10px;">
+          <span style="font-size:3vw;">Qty</span><br>{{item.Stock}}
+        </ion-col>
+      </ion-row>
+    </div>
+  </div>
+
+</ion-content>

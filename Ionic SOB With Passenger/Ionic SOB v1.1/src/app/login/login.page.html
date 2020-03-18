@@ -1,0 +1,41 @@
+<ion-content color="secondary">
+  <div class="box">
+    <div class="user">
+      <div class="logo-center">
+        <img src="../assets/img/logo/logo.jpg" >
+      </div>
+    </div>
+  </div>
+
+  <div class="box2" style="margin-top:5px;height:80%;background-color:white;">
+    <ion-item>
+      <ion-row style="width:100%;">
+          <ion-col style="margin-top:8vw;">
+              <ion-input text-center placeholder="Username" [(ngModel)]="username" style="border:2px solid #DCDCDC;border-radius:3px;">
+            </ion-input>
+          </ion-col>
+        </ion-row>
+    </ion-item>
+
+    <ion-item>
+      <ion-row style="width:100%;">
+        <ion-col style="margin-top:1vw;" >
+            <ion-input text-center type="password" placeholder="Password" [(ngModel)]="password" style="border:2px solid #DCDCDC;border-radius:3px;"></ion-input>
+        </ion-col>
+      </ion-row>
+    </ion-item>
+
+    <ion-item>
+      <button class="button-light" (click)="Login()" style="background-color:#0b8643;margin-top:5vw;">Login</button>
+    </ion-item>
+
+
+
+</div>
+
+  
+  
+  
+  </ion-content>
+  
+ 

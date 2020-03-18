@@ -1,0 +1,20 @@
+[
+     
+    {
+        "ID":1,
+        "Nama": "Doni",
+        "No_urut":1,
+        "Sallary":100000,
+        "Status":"Active",
+        "Category":"Bangunan"
+    },
+    {
+        "ID":2,
+        "Nama": "Roni",
+        "No_urut":2,
+        "Sallary":100000,
+        "Status":"Active",
+        "Category":"Kang Pipa"
+    }
+    
+]
