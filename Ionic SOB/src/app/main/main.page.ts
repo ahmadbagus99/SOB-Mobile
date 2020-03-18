@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController,LoadingController,AlertController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-main',
@@ -12,6 +13,7 @@ export class MainPage {
   
 items : any = [];
 UserID : number;
+notes : string;
 
   constructor
   (
@@ -19,20 +21,30 @@ UserID : number;
     public alertCtrl: AlertController,
     public storage: Storage, 
     public http: HttpClient,
-    public loading: LoadingController
+    public loading: LoadingController,
+    public router: Router
     ) {
    }
   
   ionViewWillEnter(){
     this.getdata();
+    this.storage.get('Note').then((val)=>{
+      this.notes = val;
+    })
   }
   /**
   * List Function to Navigate to other Page
   * Begin
   */
-  service(Data) {
-    this.storage.set('Name', Data);
-    this.navCtrl.navigateForward('/tabs/service');
+  service(notes) {
+    this.storage.get('Note').then((val) => {
+      if ( val == null){
+        this.router.navigate(['tabs/service']);
+      }else if ( val != null){
+        this.notes = val;
+        this.router.navigate(['tabs/service/'+notes]);
+      }
+    });
   }
   home() {
     this.navCtrl.navigateForward('/home');

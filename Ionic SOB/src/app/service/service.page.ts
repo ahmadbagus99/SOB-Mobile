@@ -4,6 +4,7 @@ import { Storage } from '@ionic/storage';
 import { HTTP } from '@ionic-native/http/ngx';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { ActivatedRoute } from '@angular/router'
 
 @Component({
   selector: 'app-service',
@@ -17,15 +18,19 @@ Description:string;
 Address:string;
 sendData:Observable<any>;
 customer:string;
-Note = [];
+Note = "";
 
   constructor
   (
     public navCtrl: NavController,
     public storage: Storage, 
     public alertController: AlertController,
-    public http: HttpClient
+    public http: HttpClient,
+    public actRoute: ActivatedRoute
   ) { 
+    this.actRoute.params.subscribe((data: any)=>{
+      this.Description = data.notes;
+    })
   }
 
   ionViewWillEnter(){
@@ -34,9 +39,6 @@ Note = [];
     });
     this.storage.get('customer').then((val) => {
       this.customer=val;
-    });
-    this.storage.get('Description').then((val) => {
-      this.Description=val;
     });
   }
   /**
@@ -56,24 +58,7 @@ Note = [];
    * @function# to Add Description
    */
   async save(){
-    var Note = [];
-    this.storage.get('Note').then(data =>{
-    if ( data == null){
-      const Note = [];
-      let body = {
-        note: this.Description
-      }
-      Note.push(body)
-      this.storage.set('Note', Note);
-    }else{
-      Note = data;
-      let body = {
-        note: this.Description
-      }
-      Note.push(body)
-      this.storage.set('Note', Note);
-    }
-    })
+    this.storage.set('Note', this.Description)
     const alert = await this.alertController.create({
       message: 'Success Added!',
     })

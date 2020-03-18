@@ -19,14 +19,13 @@ const routes: Routes = [
       { path: 'passanger', loadChildren: '../passanger/passanger.module#PassangerPageModule' },
       { path: 'product', loadChildren: '../product/product.module#ProductPageModule' },
       { path: 'product2', loadChildren: '../product2/product2.module#Product2PageModule' },
+      { path: 'product2/:Category', loadChildren: '../product2/product2.module#Product2PageModule' },
       { path: 'main', loadChildren: '../main/main.module#MainPageModule' },
       { path: 'sync', loadChildren: '../sync/sync.module#SyncPageModule' },
-      { path: 'contact', loadChildren: '../contact/contact.module#ContactPageModule' },
       { path: 'flight', loadChildren: '../flight/flight.module#FlightPageModule' },
-      { path: 'report-note', loadChildren: '../report-note/report-note.module#ReportNotePageModule' },
       { path: 'sync-modal', loadChildren: '../sync-modal/sync-modal.module#SyncModalPageModule' },
-      { path: 'detail-order/:Seat/:NamaPassanger', loadChildren: '../detail-order/detail-order.module#DetailOrderPageModule' }
-      
+      { path: 'detail-order/:Seat/:NamaPassanger', loadChildren: '../detail-order/detail-order.module#DetailOrderPageModule' },
+      { path: 'category/:productCategory', loadChildren: './category/category.module#CategoryPageModule' },
     ]
   },
   {
