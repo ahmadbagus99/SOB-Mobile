@@ -13,6 +13,7 @@ const routes: Routes = [
     component: TabsPage,
     children: [
       { path: 'service', loadChildren: '../service/service.module#ServicePageModule' },
+      { path: 'service/:notes', loadChildren: '../service/service.module#ServicePageModule' },
       { path: 'waiting', loadChildren: '../waiting/waiting.module#WaitingPageModule' },
       { path: 'order', loadChildren: '../order/order.module#OrderPageModule' },
       { path: 'payment', loadChildren: '../payment/payment.module#PaymentPageModule' },
